@@ -155,9 +155,36 @@ export default function UserHeader(props) {
               style={{ zIndex: 1300 }}
               keepMounted
             >
-              <MenuItem onClick={handleClose}>Settings</MenuItem>
-              <MenuItem onClick={handleClose}>Subscription</MenuItem>
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(3);
+                }}
+                component={Link}
+                to="/settings"
+              >
+                Settings
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(3);
+                }}
+                component={Link}
+                to="/subscription"
+              >
+                Subscription
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  setValue(3);
+                }}
+                component={Link}
+                to="/logout"
+              >
+                Log Out
+              </MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
