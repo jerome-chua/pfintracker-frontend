@@ -16,7 +16,7 @@ function ElevationScroll(props) {
 export default function UserHeader(props) {
   return (
     <ElevationScroll>
-      <AppBar position="fixed">
+      <AppBar position="fixed" color="primary">
         <Toolbar>SAVIFY</Toolbar>
       </AppBar>
     </ElevationScroll>
