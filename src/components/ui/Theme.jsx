@@ -17,4 +17,9 @@ export default createMuiTheme({
       main: `${brandBg}`,
     },
   },
+  typography: {
+    h5: {
+      fontweight: 200,
+    },
+  },
 });
