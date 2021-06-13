@@ -1,4 +1,6 @@
 import React from "react";
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./ui/Theme.jsx";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
 import UserHeader from "../components/ui/UserHeader";
@@ -8,7 +10,9 @@ export default function App() {
 
   return (
     <Router>
-      <UserHeader />
+      <ThemeProvider theme={theme}>
+        <UserHeader />
+      </ThemeProvider>
       <div>
         {/*TODO: Cater for 2 different navbars */}
         {/*TODO: Update to Material UI AppBar */}
