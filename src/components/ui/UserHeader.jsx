@@ -7,6 +7,8 @@ import {
   Tabs,
   Tab,
   Button,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { AccountCircle } from "@material-ui/icons";
@@ -54,6 +56,25 @@ const useStyles = makeStyles((theme) => ({
 export default function UserHeader(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const handleChange = (e, value) => {
+    setValue(value);
+  };
+
+  // For profile menu
+  const handleClick = (e) => {
+    console.log(e.currentTarget);
+    setAnchorEl(e.currentTarget);
+    setOpenMenu(true);
+  };
+
+  // For profile menu
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    setOpenMenu(false);
+  };
 
   useEffect(() => {
     if (window.location.pathname === "/transactions" && value !== 0) {
@@ -66,10 +87,6 @@ export default function UserHeader(props) {
       setValue(3);
     }
   }, [value]);
-
-  const handleChange = (evt, value) => {
-    setValue(value);
-  };
 
   return (
     <>
@@ -119,13 +136,29 @@ export default function UserHeader(props) {
                 label="Budget"
               />
               <Tab
-                icon={<AccountCircle />}
+                aria-owns={anchorEl ? "profile-menu" : undefined}
+                aria-haspopup={anchorEl ? true : undefined}
+                onMouseOver={(event) => handleClick(event)}
                 className={classes.tab}
                 component={Link}
                 to="/profile"
-                aria-label="Profile"
+                icon={<AccountCircle />}
               />
             </Tabs>
+            <Menu
+              id="profile-menu"
+              anchorEl={anchorEl}
+              open={openMenu}
+              onClose={handleClose}
+              MenuListProps={{ onMouseLeave: handleClose }}
+              elevation={0}
+              style={{ zIndex: 1300 }}
+              keepMounted
+            >
+              <MenuItem onClick={handleClose}>Settings</MenuItem>
+              <MenuItem onClick={handleClose}>Subscription</MenuItem>
+              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
