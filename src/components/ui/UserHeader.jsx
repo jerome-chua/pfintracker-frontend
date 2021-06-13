@@ -1,4 +1,4 @@
-import React, { useState, cloneElement } from "react";
+import React, { useState, useEffect, cloneElement } from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,6 +6,7 @@ import {
   Typography,
   Tabs,
   Tab,
+  Button,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
@@ -29,7 +30,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2em",
   },
   logo: {
-    height: "1.8em",
+    height: "2em",
+    padding: 3,
+    verticalAlign: "middle",
+  },
+  logoContainer: {
+    padding: 0,
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
   },
   tabsContainer: {
     marginLeft: "auto",
@@ -45,6 +54,18 @@ export default function UserHeader(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
+  useEffect(() => {
+    if (window.location.pathname === "/transactions" && value !== 0) {
+      setValue(0);
+    } else if (window.location.pathname === "/dashboard" && value !== 1) {
+      setValue(1);
+    } else if (window.location.pathname === "/budget" && value !== 2) {
+      setValue(2);
+    } else if (window.location.pathname === "/profile" && value !== 3) {
+      setValue(3);
+    }
+  }, [value]);
+
   const handleChange = (evt, value) => {
     setValue(value);
   };
@@ -54,14 +75,24 @@ export default function UserHeader(props) {
       <ElevationScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar>
-            <Typography variant="h5" color="secondary">
-              <img
-                alt="company logo"
-                className={classes.logo}
-                src="./logo.svg"
-              />
-              SAVIFY
-            </Typography>
+            <Button
+              component={Link}
+              to="/"
+              onClick={() => {
+                setValue(null);
+              }}
+              className={classes.logoContainer}
+              disableRipple
+            >
+              <Typography variant="h5" color="secondary">
+                <img
+                  alt="company logo"
+                  className={classes.logo}
+                  src="./logo.svg"
+                />
+                <span className={classes.logo}>SAVIFY</span>
+              </Typography>
+            </Button>
             <Tabs
               value={value}
               onChange={handleChange}
