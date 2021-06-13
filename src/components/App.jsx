@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./ui/Theme.jsx";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Transactions from "./Transactions.jsx";
 import Login from "./Login.jsx";
 import UserHeader from "../components/ui/UserHeader";
 
@@ -15,7 +16,7 @@ export default function App() {
         <UserHeader />
         <Switch>
           <Route exact path="/transactions">
-            Transactions Component
+            <Transactions />
           </Route>
           <Route exact path="/dashboard">
             Dashboard Component

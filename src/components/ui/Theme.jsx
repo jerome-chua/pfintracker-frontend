@@ -1,6 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const brandGreen = "#b6eb7a";
+const brandDarkGreen = "#17706e";
 const brandOrange = "#fb7813";
 const brandBg = "#f7f7ee";
 
@@ -15,6 +16,7 @@ export default createMuiTheme({
     },
     secondary: {
       main: `${brandBg}`,
+      green: `${brandDarkGreen}`,
     },
   },
   typography: {
