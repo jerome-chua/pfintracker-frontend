@@ -9,6 +9,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { AccountCircle } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 function ElevationScroll(props) {
@@ -105,26 +106,24 @@ export default function UserHeader(props) {
                 to="/transactions"
                 label="Transactions"
               />
-
               <Tab
                 className={classes.tab}
                 component={Link}
                 to="/dashboard"
                 label="Dashboard"
               />
-
               <Tab
                 className={classes.tab}
                 component={Link}
                 to="/budget"
                 label="Budget"
               />
-
               <Tab
+                icon={<AccountCircle />}
                 className={classes.tab}
                 component={Link}
                 to="/profile"
-                label="Profile"
+                aria-label="Profile"
               />
             </Tabs>
           </Toolbar>
