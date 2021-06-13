@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Button } from "@material-ui/core";
 import { AddBox } from "@material-ui/icons";
+import TransactionsTable from "./TransactionsTable.jsx";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -31,6 +32,8 @@ export default function Transactions() {
       >
         Add Transaction
       </Button>
+
+      <TransactionsTable />
     </>
   );
 }
