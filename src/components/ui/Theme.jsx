@@ -21,5 +21,11 @@ export default createMuiTheme({
     h5: {
       fontweight: 200,
     },
+    tab: {
+      fontFamily: "Raleway",
+      textTranform: "none",
+      fontWeight: 500,
+      fontSize: "1rem",
+    },
   },
 });

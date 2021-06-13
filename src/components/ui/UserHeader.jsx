@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, cloneElement } from "react";
 import {
   AppBar,
   Toolbar,
   useScrollTrigger,
   Typography,
+  Tabs,
+  Tab,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
@@ -14,7 +16,7 @@ function ElevationScroll(props) {
     threshold: 0,
   });
 
-  return React.cloneElement(children, {
+  return cloneElement(children, {
     elevation: trigger ? 4 : 0,
   });
 }
@@ -27,6 +29,14 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     height: "1.8em",
+  },
+  tabsContainer: {
+    marginLeft: "auto",
+  },
+  tab: {
+    ...theme.typography.tab,
+    minWidth: 12,
+    marginLeft: "20px",
   },
 }));
 
@@ -46,6 +56,15 @@ export default function UserHeader(props) {
               />
               SAVIFY
             </Typography>
+            <Tabs className={classes.tabsContainer}>
+              <Tab className={classes.tab} label="Transactions" />
+
+              <Tab className={classes.tab} label="Dashboard" />
+
+              <Tab className={classes.tab} label="Budget" />
+
+              <Tab className={classes.tab} label="Profile" />
+            </Tabs>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
