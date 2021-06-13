@@ -8,6 +8,7 @@ import {
   Tab,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -42,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserHeader(props) {
   const classes = useStyles();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (evt, value) => {
+    setValue(value);
+  };
 
   return (
     <>
@@ -56,14 +62,39 @@ export default function UserHeader(props) {
               />
               SAVIFY
             </Typography>
-            <Tabs className={classes.tabsContainer}>
-              <Tab className={classes.tab} label="Transactions" />
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              className={classes.tabsContainer}
+              indicatorColor="secondary"
+            >
+              <Tab
+                className={classes.tab}
+                component={Link}
+                to="/transactions"
+                label="Transactions"
+              />
 
-              <Tab className={classes.tab} label="Dashboard" />
+              <Tab
+                className={classes.tab}
+                component={Link}
+                to="/dashboard"
+                label="Dashboard"
+              />
 
-              <Tab className={classes.tab} label="Budget" />
+              <Tab
+                className={classes.tab}
+                component={Link}
+                to="/budget"
+                label="Budget"
+              />
 
-              <Tab className={classes.tab} label="Profile" />
+              <Tab
+                className={classes.tab}
+                component={Link}
+                to="/profile"
+                label="Profile"
+              />
             </Tabs>
           </Toolbar>
         </AppBar>
