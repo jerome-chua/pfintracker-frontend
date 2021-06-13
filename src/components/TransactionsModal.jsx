@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Button } from "@material-ui/core";
+import { Modal, Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
 
 function getModalPos() {
-  const top = 40;
-  const left = 50;
+  const top = 25;
+  const left = 35;
 
   return {
     top: `${top}%`,
@@ -17,7 +17,7 @@ function getModalPos() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 500,
+    width: "66.7%",
     backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(2, 4, 3),
   },
@@ -47,8 +47,31 @@ export default function TransactionsModal() {
 
   const modalBody = (
     <div style={modalStyle} className={classes.paper}>
-      <h2>Text in a modal</h2>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+      <Grid container direction="row" spacing={2}>
+        <Grid item>
+          <h2>Category</h2>
+        </Grid>
+        <Grid item>
+          <h2>Date</h2>
+        </Grid>
+        <Grid item>
+          <h2>Note</h2>
+        </Grid>
+        <Grid item>
+          <h2>Hashtag</h2>
+        </Grid>
+        <Grid item>
+          <h2>Amount</h2>
+        </Grid>
+        <Grid item>
+          <h2>Currency</h2>
+        </Grid>
+      </Grid>
+      <Grid container direction="row" justify="flex-end">
+        <Grid item>
+          <Button>Add Transaction</Button>
+        </Grid>
+      </Grid>
     </div>
   );
 
