@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserHeader(props) {
   const classes = useStyles();
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(1);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
 

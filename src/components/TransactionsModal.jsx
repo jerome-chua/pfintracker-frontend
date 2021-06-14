@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Grid, TextField } from "@material-ui/core";
+import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
 
@@ -36,9 +36,16 @@ const useStyles = makeStyles((theme) => ({
     color: "grey",
     fontWeight: 100,
   },
+  field: {
+    minWidth: 175,
+  },
 }));
 
-export default function TransactionsModal() {
+export default function TransactionsModal({
+  category,
+  categories,
+  handleCatChange,
+}) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalPos);
   const [open, setOpen] = useState(false);
@@ -56,7 +63,22 @@ export default function TransactionsModal() {
       <Grid container direction="row" spacing={2}>
         <Grid item className={classes.header}>
           <h5>Category</h5>
-          <h5>Category</h5>
+          <div>
+            <TextField
+              className={classes.field}
+              select
+              value={category}
+              onChange={handleCatChange}
+              variant="outlined"
+              label="Select Category"
+            >
+              {categories.map((cat, index) => (
+                <MenuItem key={index.toString()} value={cat}>
+                  {cat}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
         </Grid>
         <Grid item className={classes.header}>
           <h5>Date</h5>

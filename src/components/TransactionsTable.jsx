@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { SavifyContext, getTransactions } from "../store.js";
+import React, { useContext, useEffect, useState } from "react";
+import { SavifyContext, getTransactions, getCategories } from "../store.js";
 import {
   Table,
   TableBody,
@@ -31,8 +31,6 @@ export default function TransactionsTable() {
     // TODO: Include userId as second params after dispatch (once Login done)
     getTransactions(dispatch);
   }, []);
-
-  console.log(transactions);
 
   return (
     <TableContainer component={Paper}>
