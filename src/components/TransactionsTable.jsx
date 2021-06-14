@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect } from "react";
+import { SavifyContext, getTransactions } from "../store.js";
 import {
   Table,
   TableBody,
@@ -21,6 +22,15 @@ const useRowStyles = makeStyles({
 
 export default function TransactionsTable() {
   const classes = useRowStyles();
+  const { store, dispatch } = useContext(SavifyContext);
+  const { transactions } = store;
+
+  useEffect(() => {
+    // TODO: Include userId as second params after dispatch (once Login done)
+    getTransactions(dispatch);
+  }, []);
+
+  console.log(transactions);
 
   return (
     <TableContainer component={Paper}>
@@ -35,7 +45,21 @@ export default function TransactionsTable() {
             <TableCell align="right">Currency</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{/* TODO: useEffect to get rows here */}</TableBody>
+        {/* TODO: include Collapsable/Modal to update each transaction */}
+        <TableBody>
+          {transactions.map((row) => {
+            return (
+              <TableRow key={row.id.toString()}>
+                <TableCell align="right">{row.category}</TableCell>
+                <TableCell align="right">{row.createdAt}</TableCell>
+                <TableCell align="right">{row.note}</TableCell>
+                <TableCell align="right">{row.hashtag}</TableCell>
+                <TableCell align="right">{row.amount.toFixed(2)}</TableCell>
+                <TableCell align="right">{row.currency}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
       </Table>
     </TableContainer>
   );

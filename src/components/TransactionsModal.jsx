@@ -79,7 +79,6 @@ export default function TransactionsModal() {
     <>
       <Button
         variant="contained"
-        color="green"
         className={classes.button}
         startIcon={<AddBox />}
         onClick={handleOpen}

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 // INTIAL STATE 
-const initialState = {
+export const initialState = {
   transactions: [],
 }
 
@@ -25,12 +25,10 @@ export function savifyReducer(state, action) {
 
 
 // ACTION CREATORS
-export function getTransactionsAction(allTransactions) {
+export function getTransactionsAction(transactions) {
   return {
     type: GET_TRANSACTIONS,
-    payload: {
-      allTransactions,
-    }
+    payload: transactions,   
   }
 }
 

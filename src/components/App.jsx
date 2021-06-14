@@ -5,7 +5,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import theme from "./ui/Theme.jsx";
 import UserHeader from "../components/ui/UserHeader";
 import Transactions from "./Transactions.jsx";
-import Login from "./Login.jsx";
+// import Login from "./Login.jsx";
 
 export default function App() {
   console.log("Main App Renders");
