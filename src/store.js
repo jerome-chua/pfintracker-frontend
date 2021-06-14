@@ -2,13 +2,16 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 // axios.defaults.withCredentials = true;
 
-// INTIAL STATE
+
+// INTIAL STATE 
 const initialState = {
   transactions: [],
 }
 
-// TYPE CONSTANTS
+
+// ACTION TYPES
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS'
+
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -20,15 +23,24 @@ export function savifyReducer(state, action) {
   }
 }
 
+
 // ACTION CREATORS
-export function getTransactionsAction()
+export function getTransactionsAction(allTransactions) {
+  return {
+    type: GET_TRANSACTIONS,
+    payload: {
+      allTransactions,
+    }
+  }
+}
 
 
 // PROVIDER HOC
-export const savifyContext = React.createContext(null); 
-const { Provider } = savifyContext;
+export const SavifyContext = React.createContext(null); 
+const { Provider } = SavifyContext;
 
-export function savifyProvider({children}) {
+export function SavifyProvider({children}) {
+  // Allows state to be updated via dispatch(action)
   const [store, dispatch] = useReducer(savifyReducer, initialState)
 
   return (
@@ -41,3 +53,9 @@ export function savifyProvider({children}) {
 // REQUESTS TO BACKEND
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3004";
 
+export function getTransactions(dispatch) {
+  axios.get(`${REACT_APP_BACKEND_URL}/gettransactions`)
+    .then((res) => {
+      dispatch(getTransactionsAction(res.data));
+    });
+}
