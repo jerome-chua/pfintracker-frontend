@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
+import Datepicker from "./Datepicker.jsx";
 
 function getModalPos() {
   const top = 25;
@@ -82,6 +83,7 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Date</h5>
+          <Datepicker />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Note</h5>
@@ -91,7 +93,7 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Amount</h5>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.root} autoComplete="off">
             <TextField variant="outlined" />
           </form>
         </Grid>
