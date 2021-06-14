@@ -6,11 +6,13 @@ import axios from 'axios';
 // INTIAL STATE 
 export const initialState = {
   transactions: [],
+  newTransaction: {},
 }
 
 
 // ACTION TYPES
-const GET_TRANSACTIONS = 'GET_TRANSACTIONS'
+const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+const ADD_TRANSACTION = 'ADD_TRANSACTION';
 
 
 // REDUCER FUNCTION
@@ -29,6 +31,13 @@ export function getTransactionsAction(transactions) {
   return {
     type: GET_TRANSACTIONS,
     payload: transactions,   
+  }
+}
+
+export function addTransactionAction(transaction) {
+  return {
+    type: ADD_TRANSACTION,
+    payload: transaction,
   }
 }
 
@@ -56,5 +65,12 @@ export function getTransactions(dispatch, userId=1) {
   axios.get(`${REACT_APP_BACKEND_URL}/gettransactions/${userId}`)
     .then((res) => {
       dispatch(getTransactionsAction(res.data));
+    });
+}
+
+export function addTransaction(dispatch, transactionData) {
+  axios.post(`${REACT_APP_BACKEND_URL}/addtransaction`, transactionData)
+    .then((res) => {
+      dispatch(addTransactionAction(res.data));
     });
 }

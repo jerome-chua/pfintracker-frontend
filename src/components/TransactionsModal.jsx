@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button, Grid } from "@material-ui/core";
+import { Modal, Button, Grid, TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
 
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     width: "66.7%",
     backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(2, 4, 3),
+    borderRadius: "20px",
   },
   button: {
     fontFamily: "Raleway",
@@ -29,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.common.green,
     },
+  },
+  header: {
+    fontFamily: "Raleway",
+    color: "grey",
+    fontWeight: 100,
   },
 }));
 
@@ -48,25 +54,30 @@ export default function TransactionsModal() {
   const modalBody = (
     <div style={modalStyle} className={classes.paper}>
       <Grid container direction="row" spacing={2}>
-        <Grid item>
-          <h2>Category</h2>
+        <Grid item className={classes.header}>
+          <h5>Category</h5>
+          <h5>Category</h5>
         </Grid>
-        <Grid item>
-          <h2>Date</h2>
+        <Grid item className={classes.header}>
+          <h5>Date</h5>
         </Grid>
-        <Grid item>
-          <h2>Note</h2>
+        <Grid item className={classes.header}>
+          <h5>Note</h5>
         </Grid>
-        <Grid item>
-          <h2>Hashtag</h2>
+        <Grid item className={classes.header}>
+          <h5>Hashtag</h5>
         </Grid>
-        <Grid item>
-          <h2>Amount</h2>
+        <Grid item className={classes.header}>
+          <h5>Amount</h5>
+          <form className={classes.root} noValidate autoComplete="off">
+            <TextField variant="outlined" />
+          </form>
         </Grid>
-        <Grid item>
-          <h2>Currency</h2>
+        <Grid item className={classes.header}>
+          <h5>Currency</h5>
         </Grid>
       </Grid>
+
       <Grid container direction="row" justify="flex-end">
         <Grid item>
           <Button>Add Transaction</Button>
