@@ -6,20 +6,22 @@ import axios from 'axios';
 // INTIAL STATE 
 export const initialState = {
   transactions: [],
-  newTransaction: {},
+  categories: [],
 }
 
 
 // ACTION TYPES
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const ADD_TRANSACTION = 'ADD_TRANSACTION';
-
+const GET_CATEGORIES = 'GET_CATEGORIES';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
   switch (action.type) {
     case GET_TRANSACTIONS:
       return { ...state, transactions: action.payload };
+    case GET_CATEGORIES:
+      return { ...state, categories: action.payload };
     default:
       return state
   }
@@ -39,6 +41,13 @@ export function addTransactionAction(transaction) {
     type: ADD_TRANSACTION,
     payload: transaction,
   }
+}
+
+export function getCategoriesAction(categories) {
+  return {
+    type: GET_CATEGORIES,
+    payload: categories,   
+  } 
 }
 
 
@@ -72,5 +81,12 @@ export function addTransaction(dispatch, transactionData) {
   axios.post(`${REACT_APP_BACKEND_URL}/addtransaction`, transactionData)
     .then((res) => {
       dispatch(addTransactionAction(res.data));
+    });
+}
+
+export function getCategories(dispatch) {
+  axios.get(`${REACT_APP_BACKEND_URL}/getcategories`)
+    .then((res) => {
+      dispatch(getCategoriesAction(res.data));
     });
 }
