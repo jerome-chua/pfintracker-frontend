@@ -7,6 +7,7 @@ import axios from 'axios';
 export const initialState = {
   transactions: [],
   categories: [],
+  hashtags: [],
 }
 
 
@@ -14,6 +15,7 @@ export const initialState = {
 const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const ADD_TRANSACTION = 'ADD_TRANSACTION';
 const GET_CATEGORIES = 'GET_CATEGORIES';
+const GET_HASHTAGS = 'GET_HASHTAGS';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -22,6 +24,8 @@ export function savifyReducer(state, action) {
       return { ...state, transactions: action.payload };
     case GET_CATEGORIES:
       return { ...state, categories: action.payload };
+    case GET_HASHTAGS:
+        return { ...state, hashtags: action.payload };
     default:
       return state
   }
@@ -47,6 +51,13 @@ export function getCategoriesAction(categories) {
   return {
     type: GET_CATEGORIES,
     payload: categories,   
+  } 
+}
+
+export function getHashtagsAction(hashtags) {
+  return {
+    type: GET_HASHTAGS,
+    payload: hashtags,   
   } 
 }
 
@@ -86,6 +97,13 @@ export function addTransaction(dispatch, transactionData) {
 
 export function getCategories(dispatch) {
   axios.get(`${REACT_APP_BACKEND_URL}/getcategories`)
+    .then((res) => {
+      dispatch(getCategoriesAction(res.data));
+    });
+}
+
+export function getHashTags(dispatch) {
+  axios.get(`${REACT_APP_BACKEND_URL}/gethashtags`)
     .then((res) => {
       dispatch(getCategoriesAction(res.data));
     });

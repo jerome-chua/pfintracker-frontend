@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SavifyContext, getCategories } from "../store";
+import { SavifyContext, getCategories, getHashTags } from "../store";
 import { makeStyles } from "@material-ui/styles";
 import TransactionsTable from "./TransactionsTable.jsx";
 import TransactionsModal from "./TransactionsModal.jsx";

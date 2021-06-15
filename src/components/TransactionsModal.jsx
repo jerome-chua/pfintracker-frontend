@@ -87,10 +87,11 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Date</h5>
-          <Datepicker className={classes.field} />
+          <Datepicker />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Note</h5>
+          <TextField className={classes.field} id="note-text" defaultValue="" />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Hashtag</h5>
