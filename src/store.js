@@ -22,6 +22,8 @@ export function savifyReducer(state, action) {
   switch (action.type) {
     case GET_TRANSACTIONS:
       return { ...state, transactions: action.payload };
+    case ADD_TRANSACTION:
+      return { ...state, transactions: [...state.transactions, action.payload] };
     case GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case GET_HASHTAGS:
@@ -106,5 +108,5 @@ export function getHashTags(dispatch) {
   axios.get(`${REACT_APP_BACKEND_URL}/gethashtags`)
     .then((res) => {
       dispatch(getHashtagsAction(res.data));
-    });
+  });
 }

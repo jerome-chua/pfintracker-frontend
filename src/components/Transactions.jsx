@@ -16,8 +16,11 @@ export default function Transactions() {
   const [hashtag, setHashtag] = useState("");
   const [note, setNote] = useState("");
   const [amount, setAmt] = useState();
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
 
-  const { dispatch } = useContext(SavifyContext);
+  const { store, dispatch } = useContext(SavifyContext);
 
   useEffect(() => {
     getCategories(dispatch);
@@ -27,6 +30,11 @@ export default function Transactions() {
   // Category
   const handleCatChange = (evt) => {
     setCategory(evt.target.value);
+  };
+
+  // Date
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   // Hashtag
@@ -41,7 +49,7 @@ export default function Transactions() {
 
   const transactionData = {
     category,
-    // date,
+    selectedDate,
     note,
     amount: parseFloat(amount),
     hashtag,
@@ -52,6 +60,8 @@ export default function Transactions() {
       <TransactionsModal
         category={category}
         handleCatChange={handleCatChange}
+        selectedDate={selectedDate}
+        handleDateChange={handleDateChange}
         hashtag={hashtag}
         handleTagChange={handleTagChange}
         amount={amount}

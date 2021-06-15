@@ -13,15 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Datepicker() {
+export default function Datepicker({ selectedDate, handleDateChange }) {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
 
   return (
     <>

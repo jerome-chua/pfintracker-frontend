@@ -56,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
 export default function TransactionsModal({
   category,
   handleCatChange,
+  selectedDate,
+  handleDateChange,
   hashtag,
   handleTagChange,
   amount,
@@ -79,6 +81,7 @@ export default function TransactionsModal({
 
   const sendData = () => {
     addTransaction(dispatch, transactionData);
+    setOpen(false);
   };
 
   const modalBody = (
@@ -105,7 +108,10 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Date</h5>
-          <Datepicker />
+          <Datepicker
+            handleDateChange={handleDateChange}
+            selectedDate={selectedDate}
+          />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Note</h5>

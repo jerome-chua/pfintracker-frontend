@@ -30,7 +30,7 @@ export default function TransactionsTable() {
   useEffect(() => {
     // TODO: Include userId as second params after dispatch (once Login done)
     getTransactions(dispatch);
-  }, []);
+  }, [transactions.length]);
 
   return (
     <TableContainer component={Paper}>
