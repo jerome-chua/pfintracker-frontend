@@ -37,9 +37,6 @@ export function savifyReducer(state, action) {
         return {...state, loading: action.payload };
     case HIDE_LOADER:
         return {...state, loading: action.payload };
-    case  CALC_SAVINGS:
-      const updated = state.transactions.reduce((acc, currVal) => (currVal.transaction_type === 'Expense' ? acc - currVal.amount : acc + currVal.amount), 0);
-      return {...state, savings: updated}
     default:
       return state
   }
@@ -88,7 +85,6 @@ export function hideLoaderAction() {
     payload: false,   
   } 
 }
-
 
 // PROVIDER HOC
 export const SavifyContext = React.createContext(null); 

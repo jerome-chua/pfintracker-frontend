@@ -22,6 +22,15 @@ export default function Transactions() {
   );
 
   const { store, dispatch } = useContext(SavifyContext);
+  const { transactions } = store;
+
+  const savings = transactions.reduce(
+    (acc, currVal) =>
+      currVal.transaction_type === "Expense"
+        ? acc - currVal.amount
+        : acc + currVal.amount,
+    0
+  );
 
   useEffect(() => {
     getCategories(dispatch);
@@ -69,7 +78,7 @@ export default function Transactions() {
         handleAmtChange={handleAmtChange}
         transactionData={transactionData}
       />
-      <IncomeCard />
+      <IncomeCard savings={savings} />
       <TransactionsTable />
     </>
   );

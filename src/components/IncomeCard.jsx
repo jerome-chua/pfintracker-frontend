@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function IncomeCard() {
+export default function IncomeCard({ savings }) {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
@@ -31,7 +31,7 @@ export default function IncomeCard() {
           <TextInfoContent
             classes={styles}
             overline={"Savings"}
-            heading={"React"}
+            heading={"$" + savings.toFixed(2)}
           />
         </CardContent>
       </Card>
