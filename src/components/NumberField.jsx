@@ -36,6 +36,7 @@ export default function NumberField({ handleAmtChange }) {
     <>
       <TextField
         label="Select Amount"
+        variant="outlined"
         value={value}
         onChange={handleChange}
         name="numberformat"

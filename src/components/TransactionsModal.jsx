@@ -34,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.common.green,
     },
   },
+  buttonDisabled: {
+    fontFamily: "Raleway",
+    margin: theme.spacing(1),
+    backgroundColor: "grey",
+    color: "#F6F6F6",
+  },
   header: {
     fontFamily: "Raleway",
     color: "grey",
@@ -63,6 +69,7 @@ export default function TransactionsModal({
   const { categories, hashtags } = store;
 
   const handleOpen = () => {
+    handleAmtChange(null);
     setOpen(true);
   };
 
@@ -76,7 +83,7 @@ export default function TransactionsModal({
 
   const modalBody = (
     <div style={modalStyle} className={classes.paper}>
-      <Grid container direction="row" spacing={3}>
+      <Grid container direction="row" spacing={3} alignItems="center">
         <Grid item className={classes.header}>
           <h5>Category</h5>
           <div>
@@ -102,7 +109,11 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Note</h5>
-          <TextField className={classes.field} id="note-text" defaultValue="" />
+          <TextField
+            className={classes.field}
+            id="note-text"
+            variant="outlined"
+          />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Hashtag</h5>
@@ -141,7 +152,9 @@ export default function TransactionsModal({
       <Grid container direction="row" justify="flex-end" spacing={5}>
         <Grid item>
           <Button
-            className={classes.button}
+            className={
+              category && amount ? classes.button : classes.buttonDisabled
+            }
             disabled={category && amount ? false : true}
             onClick={sendData}
           >
@@ -162,6 +175,7 @@ export default function TransactionsModal({
       >
         Add Transaction
       </Button>
+
       <Modal
         open={open}
         onClose={handleClose}

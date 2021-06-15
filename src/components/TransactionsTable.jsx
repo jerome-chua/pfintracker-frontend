@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { SavifyContext, getTransactions, getCategories } from "../store.js";
+import React, { useContext, useEffect } from "react";
+import { SavifyContext, getTransactions } from "../store.js";
 import {
   Table,
   TableBody,
@@ -50,7 +50,7 @@ export default function TransactionsTable() {
           {transactions.map((row) => {
             return (
               <TableRow key={row.id.toString()}>
-                <TableCell align="right">{row.category}</TableCell>
+                <TableCell align="left">{row.category}</TableCell>
                 <TableCell align="right">{row.createdAt}</TableCell>
                 <TableCell align="right">{row.note}</TableCell>
                 <TableCell align="right">{row.hashtag}</TableCell>

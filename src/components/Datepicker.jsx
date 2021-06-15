@@ -30,8 +30,8 @@ export default function Datepicker() {
           disableToolbar
           className={classes.field}
           variant="inline"
+          inputVariant="outlined"
           format="MM/dd/yyy"
-          margin="normal"
           id="date-picker"
           label="Select Date"
           value={selectedDate}
