@@ -94,7 +94,7 @@ export default function TransactionsModal({
         <Grid item className={classes.header}>
           <h5>Amount</h5>
           <form className={classes.root} autoComplete="off">
-            <TextField variant="outlined" />
+            <TextField variant="outlined" className={classes.field} />
           </form>
         </Grid>
         <Grid item className={classes.header}>
