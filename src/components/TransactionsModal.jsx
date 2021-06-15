@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { SavifyContext } from "../store";
+
 import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
@@ -48,12 +50,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TransactionsModal({
   category,
-  categories,
   handleCatChange,
+  hashtag,
+  handleTagChange,
 }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalPos);
   const [open, setOpen] = useState(false);
+  const { store } = useContext(SavifyContext);
+  const { categories, hashtags } = store;
 
   const handleOpen = () => {
     setOpen(true);
@@ -95,6 +100,20 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Hashtag</h5>
+          <TextField
+            className={classes.field}
+            select
+            value={hashtag}
+            onChange={handleTagChange}
+            variant="outlined"
+            label="Select Hashtag"
+          >
+            {hashtags.map((tag, index) => (
+              <MenuItem key={index.toString()} value={tag}>
+                {tag}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item className={classes.header}>
           <h5>Amount</h5>
