@@ -24,7 +24,7 @@ export default function InfoCard() {
 
   return (
     <Card className={cx(cardStyles.root, shadowStyles.root)}>
-      <BrandCardHeader image={""} extra={"Last updated: "} />
+      <BrandCardHeader image="../profit.png" extra={"Last updated: "} />
       <CardContent className={cardStyles.content}>
         <TextInfoContent
           classes={styles}
