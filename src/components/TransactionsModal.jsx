@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { SavifyContext } from "../store";
+import { SavifyContext, addTransaction } from "../store";
 import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
@@ -54,11 +54,12 @@ export default function TransactionsModal({
   handleTagChange,
   amount,
   handleAmtChange,
+  transactionData,
 }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalPos);
   const [open, setOpen] = useState(false);
-  const { store } = useContext(SavifyContext);
+  const { store, dispatch } = useContext(SavifyContext);
   const { categories, hashtags } = store;
 
   const handleOpen = () => {
@@ -67,6 +68,10 @@ export default function TransactionsModal({
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const sendData = () => {
+    addTransaction(dispatch, transactionData);
   };
 
   const modalBody = (
@@ -138,6 +143,7 @@ export default function TransactionsModal({
           <Button
             className={classes.button}
             disabled={category && amount ? false : true}
+            onClick={sendData}
           >
             Add Transaction
           </Button>

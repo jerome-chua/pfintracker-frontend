@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  SavifyContext,
-  getCategories,
-  getHashTags,
-  addTransaction,
-} from "../store";
+import { SavifyContext, getCategories, getHashTags } from "../store";
 import { makeStyles } from "@material-ui/styles";
 import TransactionsTable from "./TransactionsTable.jsx";
 import TransactionsModal from "./TransactionsModal.jsx";
@@ -48,14 +43,9 @@ export default function Transactions() {
     category,
     // date,
     note,
-    amount,
+    amount: parseFloat(amount),
     hashtag,
   };
-
-  // If button is green && clicked.
-  if (amount) {
-    addTransaction(dispatch, transactionData);
-  }
 
   return (
     <>
@@ -66,6 +56,7 @@ export default function Transactions() {
         handleTagChange={handleTagChange}
         amount={amount}
         handleAmtChange={handleAmtChange}
+        transactionData={transactionData}
       />
       <TransactionsTable />
     </>

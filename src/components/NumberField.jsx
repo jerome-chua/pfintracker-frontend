@@ -29,7 +29,7 @@ export default function NumberField({ handleAmtChange }) {
 
   const handleChange = (evt) => {
     setValue(evt.target.value);
-    handleAmtChange(value);
+    handleAmtChange(evt.target.value);
   };
 
   return (
