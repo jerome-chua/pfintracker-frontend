@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import NumberFormat from "react-number-format";
-import { Input, InputLabel, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -24,4 +24,25 @@ function NumberFormatCustom(props) {
   );
 }
 
-export default function NumberField() {}
+export default function NumberField() {
+  const [value, setValue] = useState();
+
+  const handleChange = (evt) => {
+    setValue(evt.target.value);
+  };
+
+  return (
+    <>
+      <TextField
+        label="Select Amount"
+        value={value}
+        onChange={handleChange}
+        name="numberformat"
+        id="numberformat-input"
+        InputProps={{
+          inputComponent: NumberFormatCustom,
+        }}
+      />
+    </>
+  );
+}

@@ -3,6 +3,7 @@ import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
 import Datepicker from "./Datepicker.jsx";
+import NumberField from "./NumberField.jsx";
 
 function getModalPos() {
   const top = 25;
@@ -39,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
   field: {
     ...theme.modalField,
+  },
+  currencyField: {
+    width: 100,
   },
 }));
 
@@ -93,12 +97,18 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Amount</h5>
-          <form className={classes.root} autoComplete="off">
-            <TextField variant="outlined" className={classes.field} />
-          </form>
+          <NumberField className={classes.field} />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Currency</h5>
+          <TextField
+            className={classes.currencyField}
+            defaultValue="SGD"
+            variant="filled"
+            InputProps={{
+              readOnly: true,
+            }}
+          />
         </Grid>
       </Grid>
 
