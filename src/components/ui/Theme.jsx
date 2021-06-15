@@ -30,4 +30,7 @@ export default createMuiTheme({
       fontSize: "1rem",
     },
   },
+  modalField: {
+    width: 165,
+  },
 });

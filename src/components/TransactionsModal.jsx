@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 100,
   },
   field: {
-    minWidth: 175,
+    ...theme.modalField,
   },
 }));
 
@@ -83,7 +83,7 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Date</h5>
-          <Datepicker />
+          <Datepicker className={classes.field} />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Note</h5>
