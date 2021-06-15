@@ -8,6 +8,7 @@ export const initialState = {
   transactions: [],
   categories: [],
   hashtags: [],
+  loading: false,
 }
 
 
@@ -16,6 +17,8 @@ const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 const ADD_TRANSACTION = 'ADD_TRANSACTION';
 const GET_CATEGORIES = 'GET_CATEGORIES';
 const GET_HASHTAGS = 'GET_HASHTAGS';
+const RUN_LOADER = 'RUN_LOADER';
+const HIDE_LOADER = 'HIDE_LOADER';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -28,6 +31,10 @@ export function savifyReducer(state, action) {
       return { ...state, categories: action.payload };
     case GET_HASHTAGS:
         return { ...state, hashtags: action.payload };
+    case RUN_LOADER:
+        return {...state, loading: action.payload };
+    case HIDE_LOADER:
+        return {...state, loading: action.payload };
     default:
       return state
   }
@@ -63,6 +70,20 @@ export function getHashtagsAction(hashtags) {
   } 
 }
 
+export function runLoaderAction() {
+  return {
+    type: RUN_LOADER,
+    payload: true,   
+  } 
+}
+
+export function hideLoaderAction() {
+  return {
+    type: HIDE_LOADER,
+    payload: false,   
+  } 
+}
+
 
 // PROVIDER HOC
 export const SavifyContext = React.createContext(null); 
@@ -91,6 +112,7 @@ export function getTransactions(dispatch, userId=1) {
 }
 
 export function addTransaction(dispatch, transactionData) {
+
   axios.post(`${REACT_APP_BACKEND_URL}/addtransaction`, {transactionData})
     .then((res) => {
       dispatch(addTransactionAction(res.data));
@@ -109,4 +131,12 @@ export function getHashTags(dispatch) {
     .then((res) => {
       dispatch(getHashtagsAction(res.data));
   });
+}
+
+export function runLoader(dispatch) {
+  dispatch(runLoaderAction());
+}
+
+export function hideLoader(dispatch) {
+  dispatch(hideLoaderAction());
 }

@@ -1,6 +1,13 @@
 import React, { useState, useContext } from "react";
-import { SavifyContext, addTransaction } from "../store";
-import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
+import { SavifyContext, addTransaction, runLoader, hideLoader } from "../store";
+import {
+  Modal,
+  Button,
+  Grid,
+  TextField,
+  MenuItem,
+  CircularProgress,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
 import Datepicker from "./Datepicker.jsx";
@@ -51,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
   currencyField: {
     width: 100,
   },
+  loader: {
+    width: "50%",
+  },
 }));
 
 export default function TransactionsModal({
@@ -68,7 +78,7 @@ export default function TransactionsModal({
   const [modalStyle] = useState(getModalPos);
   const [open, setOpen] = useState(false);
   const { store, dispatch } = useContext(SavifyContext);
-  const { categories, hashtags } = store;
+  const { categories, hashtags, loading } = store;
 
   const handleOpen = () => {
     handleAmtChange(null);
@@ -80,8 +90,12 @@ export default function TransactionsModal({
   };
 
   const sendData = () => {
+    runLoader(dispatch);
     addTransaction(dispatch, transactionData);
-    setOpen(false);
+    setTimeout(() => {
+      hideLoader(dispatch);
+      setOpen(false);
+    }, 1000);
   };
 
   const modalBody = (
@@ -155,7 +169,18 @@ export default function TransactionsModal({
         </Grid>
       </Grid>
 
-      <Grid container direction="row" justify="flex-end" spacing={5}>
+      <Grid
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        spacing={3}
+      >
+        {loading && (
+          <Grid item>
+            <CircularProgress className={classes.loader} />
+          </Grid>
+        )}
         <Grid item>
           <Button
             className={
