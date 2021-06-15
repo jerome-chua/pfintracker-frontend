@@ -105,6 +105,6 @@ export function getCategories(dispatch) {
 export function getHashTags(dispatch) {
   axios.get(`${REACT_APP_BACKEND_URL}/gethashtags`)
     .then((res) => {
-      dispatch(getCategoriesAction(res.data));
+      dispatch(getHashtagsAction(res.data));
     });
 }

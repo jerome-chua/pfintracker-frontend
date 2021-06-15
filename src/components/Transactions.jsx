@@ -14,10 +14,11 @@ export default function Transactions() {
   // const classes = useStyles();
   const [category, setCategory] = useState("");
   const { store, dispatch } = useContext(SavifyContext);
-  const { categories } = store;
+  const { categories, hashtags } = store;
 
   useEffect(() => {
     getCategories(dispatch);
+    getHashTags(dispatch);
   });
 
   const handleCatChange = (evt) => {
