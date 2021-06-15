@@ -3,7 +3,7 @@ import axios from 'axios';
 // axios.defaults.withCredentials = true;
 
 
-// INTIAL STATE 
+// INITIAL STATE 
 export const initialState = {
   transactions: [],
   categories: [],

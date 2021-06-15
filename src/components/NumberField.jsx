@@ -24,11 +24,12 @@ function NumberFormatCustom(props) {
   );
 }
 
-export default function NumberField() {
+export default function NumberField({ handleAmtChange }) {
   const [value, setValue] = useState();
 
   const handleChange = (evt) => {
     setValue(evt.target.value);
+    handleAmtChange(value);
   };
 
   return (

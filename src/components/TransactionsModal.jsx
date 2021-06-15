@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { SavifyContext } from "../store";
-
 import { Modal, Button, Grid, TextField, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { AddBox } from "@material-ui/icons";
@@ -53,6 +52,8 @@ export default function TransactionsModal({
   handleCatChange,
   hashtag,
   handleTagChange,
+  amount,
+  handleAmtChange,
 }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalPos);
@@ -70,7 +71,7 @@ export default function TransactionsModal({
 
   const modalBody = (
     <div style={modalStyle} className={classes.paper}>
-      <Grid container direction="row" spacing={2}>
+      <Grid container direction="row" spacing={3}>
         <Grid item className={classes.header}>
           <h5>Category</h5>
           <div>
@@ -117,7 +118,7 @@ export default function TransactionsModal({
         </Grid>
         <Grid item className={classes.header}>
           <h5>Amount</h5>
-          <NumberField className={classes.field} />
+          <NumberField handleAmtChange={handleAmtChange} />
         </Grid>
         <Grid item className={classes.header}>
           <h5>Currency</h5>
@@ -132,9 +133,14 @@ export default function TransactionsModal({
         </Grid>
       </Grid>
 
-      <Grid container direction="row" justify="flex-end">
+      <Grid container direction="row" justify="flex-end" spacing={5}>
         <Grid item>
-          <Button>Add Transaction</Button>
+          <Button
+            className={classes.button}
+            disabled={category && amount ? false : true}
+          >
+            Add Transaction
+          </Button>
         </Grid>
       </Grid>
     </div>
