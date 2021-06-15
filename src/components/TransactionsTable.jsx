@@ -33,34 +33,36 @@ export default function TransactionsTable() {
   }, [transactions.length]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="transactions-table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Category</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Note</TableCell>
-            <TableCell align="right">Hashtag</TableCell>
-            <TableCell align="right">Amount</TableCell>
-            <TableCell align="right">Currency</TableCell>
-          </TableRow>
-        </TableHead>
-        {/* TODO: include Collapsable/Modal to update each transaction */}
-        <TableBody>
-          {transactions.map((row) => {
-            return (
-              <TableRow key={row.id.toString()}>
-                <TableCell align="left">{row.category}</TableCell>
-                <TableCell align="right">{row.createdAt}</TableCell>
-                <TableCell align="right">{row.note}</TableCell>
-                <TableCell align="right">{row.hashtag}</TableCell>
-                <TableCell align="right">{row.amount.toFixed(2)}</TableCell>
-                <TableCell align="right">{row.currency}</TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box mt={3} m={1}>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="transactions-table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Category</TableCell>
+              <TableCell align="right">Date</TableCell>
+              <TableCell align="right">Note</TableCell>
+              <TableCell align="right">Hashtag</TableCell>
+              <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Currency</TableCell>
+            </TableRow>
+          </TableHead>
+          {/* TODO: include Collapsable/Modal to update each transaction */}
+          <TableBody>
+            {transactions.map((row) => {
+              return (
+                <TableRow key={row.id.toString()}>
+                  <TableCell align="left">{row.category}</TableCell>
+                  <TableCell align="right">{row.createdAt}</TableCell>
+                  <TableCell align="right">{row.note}</TableCell>
+                  <TableCell align="right">{row.hashtag}</TableCell>
+                  <TableCell align="right">{row.amount.toFixed(2)}</TableCell>
+                  <TableCell align="right">{row.currency}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }

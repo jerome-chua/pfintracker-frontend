@@ -8,6 +8,7 @@ export const initialState = {
   transactions: [],
   categories: [],
   hashtags: [],
+  savings: null,
   loading: false,
 }
 
@@ -19,6 +20,7 @@ const GET_CATEGORIES = 'GET_CATEGORIES';
 const GET_HASHTAGS = 'GET_HASHTAGS';
 const RUN_LOADER = 'RUN_LOADER';
 const HIDE_LOADER = 'HIDE_LOADER';
+const CALC_SAVINGS = 'CALC_SAVINGS';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -35,6 +37,9 @@ export function savifyReducer(state, action) {
         return {...state, loading: action.payload };
     case HIDE_LOADER:
         return {...state, loading: action.payload };
+    case  CALC_SAVINGS:
+      const updated = state.transactions.reduce((acc, currVal) => (currVal.transaction_type === 'Expense' ? acc - currVal.amount : acc + currVal.amount), 0);
+      return {...state, savings: updated}
     default:
       return state
   }

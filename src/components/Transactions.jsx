@@ -3,7 +3,7 @@ import { SavifyContext, getCategories, getHashTags } from "../store";
 import { makeStyles } from "@material-ui/styles";
 import TransactionsTable from "./TransactionsTable.jsx";
 import TransactionsModal from "./TransactionsModal.jsx";
-import InfoCard from "./InfoCard.jsx";
+import IncomeCard from "./IncomeCard.jsx";
 
 // const useStyles = makeStyles((theme) => ({
 //   table: {
@@ -69,7 +69,7 @@ export default function Transactions() {
         handleAmtChange={handleAmtChange}
         transactionData={transactionData}
       />
-      <InfoCard />
+      <IncomeCard />
       <TransactionsTable />
     </>
   );
