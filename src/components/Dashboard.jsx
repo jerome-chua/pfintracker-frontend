@@ -1,12 +1,15 @@
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import DateRangeModal from "./DateRangeModal.jsx";
-import TransactionsModal from "./TransactionsModal.jsx";
 
 export default function Dashboard() {
   return (
-    <Box>
-      <DateRangeModal />
-    </Box>
+    <Grid container>
+      <Grid item xs={12}>
+        <Box m={1}>
+          <DateRangeModal />
+        </Box>
+      </Grid>
+    </Grid>
   );
 }
