@@ -7,7 +7,7 @@ export default function useCategories(type) {
   // resetCategories();
 
   const {store, } = useContext(SavifyContext);
-  const { transactions } = store;
+  const { transactions, periodChoice } = store;
 
 
   // Filter for income | expense

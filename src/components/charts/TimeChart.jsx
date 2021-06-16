@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { SavifyContext, setPeriodAction } from "../../store.js";
 import {
   Grid,
   Card,
@@ -12,6 +13,7 @@ import useStyles from "./styles";
 import useCategories from "../../useCategories.js";
 
 export default function CatDoughnut({ type }) {
+  const { store, dispatch } = useContext(SavifyContext);
   const classes = useStyles();
   const { total, timeData } = useCategories(type);
   const [period, setPeriod] = useState("month");
@@ -20,6 +22,7 @@ export default function CatDoughnut({ type }) {
 
   const handlePeriod = (evt, newPeriod) => {
     setPeriod(newPeriod);
+    dispatch(setPeriodAction(newPeriod));
   };
 
   return (

@@ -8,6 +8,7 @@ export const initialState = {
   transactions: [],
   categories: [],
   hashtags: [],
+  periodChoice: "",
   loading: false,
 }
 
@@ -19,6 +20,7 @@ const GET_CATEGORIES = 'GET_CATEGORIES';
 const GET_HASHTAGS = 'GET_HASHTAGS';
 const RUN_LOADER = 'RUN_LOADER';
 const HIDE_LOADER = 'HIDE_LOADER';
+const SET_PERIOD = 'SET_PERIOD';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -35,6 +37,8 @@ export function savifyReducer(state, action) {
         return {...state, loading: action.payload };
     case HIDE_LOADER:
         return {...state, loading: action.payload };
+    case SET_PERIOD:
+      return {...state, periodChoice: action.payload };
     default:
       return state
   }
@@ -83,6 +87,15 @@ export function hideLoaderAction() {
     payload: false,   
   } 
 }
+
+export function setPeriodAction(period) {
+  return {
+    type: SET_PERIOD,
+    payload: period,   
+  } 
+}
+
+
 
 // PROVIDER HOC
 export const SavifyContext = React.createContext(null); 
@@ -138,4 +151,8 @@ export function runLoader(dispatch) {
 
 export function hideLoader(dispatch) {
   dispatch(hideLoaderAction());
+}
+
+export function setPeriodChoice(dispatch, periodChoice) {
+  dispatch(setPeriodAction(periodChoice));
 }
