@@ -206,7 +206,6 @@ export default function TransactionsModal({
       >
         Add Transaction
       </Button>
-
       <Modal
         open={open}
         onClose={handleClose}
