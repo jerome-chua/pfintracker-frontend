@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { SavifyContext } from "./store.js";
 import { incomeCategories, expenseCategories, resetCategories } from './components/ui/categoryStyles.js';
 
@@ -28,7 +28,7 @@ export default function useCategories(type) {
     }
   });
   
-  // Leave out categories with $0 in doughtnut chart display where
+  // Leave out categories with $0 in doughtnut chart display
   const filteredCategories = categories.filter((cat) => cat.amount > 0);
   
   const catData = {

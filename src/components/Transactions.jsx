@@ -99,9 +99,7 @@ export default function Transactions() {
       <Grid item xs={12} md={3}>
         <SavingsCard savings={parseInt(savings.toFixed(2))} />
       </Grid>
-      <Grid item xs={12} md={3}>
-        <CatDoughnut type={"Income"} />
-      </Grid>
+
       <Grid item xs={12} md={3}>
         <ExpenseCard expenses={parseInt(expenses.toFixed(2))} />
       </Grid>

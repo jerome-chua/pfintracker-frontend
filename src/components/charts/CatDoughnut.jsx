@@ -8,14 +8,13 @@ export default function CatDoughnut({ type }) {
   const classes = useStyles();
   const { total, catData } = useCategories(type);
 
-  console.log("TOTAL", total);
-  console.log("CATDATA", catData);
+  const roundTotal = parseInt(total.toFixed(2));
 
   return (
     <Card className={type === "Income" ? classes.income : classes.expense}>
       <CardHeader title={type} subheader={"test"} />
       <CardContent>
-        <Typography variant="h5">${total}</Typography>
+        <Typography variant="h5">${roundTotal.toLocaleString()}</Typography>
         <Doughnut data={catData} />
       </CardContent>
     </Card>
