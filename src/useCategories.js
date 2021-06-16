@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { savifyContext } from "./store.js";
-import { incomeCategories, expenseCategories, resetCategories } from './ui/categoryStyles.js';
+import { SavifyContext } from "./store.js";
+import { incomeCategories, expenseCategories, resetCategories } from './components/ui/categoryStyles.js';
 
 
 export default function useCategories(type) {
-  resetCategories();
+  // resetCategories();
 
-  const {store, } = useContext(savifyContext);
+  const {store, } = useContext(SavifyContext);
   const { transactions } = store;
 
   // Filter for income | expense
@@ -30,14 +30,14 @@ export default function useCategories(type) {
   
   // Leave out categories with $0 in doughtnut chart display where
   const filteredCategories = categories.filter((cat) => cat.amount > 0);
-
+  
   const catData = {
-    dataset: [{ 
+    datasets: [{ 
       data: filteredCategories.map((cat) => cat.amount), 
-      bgColor: filteredCategories.map((cat) => cat.color)
+      backgroundColor: filteredCategories.map((cat) => cat.color)
     }],
-    label: filteredCategories.map((cat) => cat.category)
-  } 
+    labels: filteredCategories.map((cat) => cat.category),
+  };
 
   return { filteredCategories, total, catData };
 };

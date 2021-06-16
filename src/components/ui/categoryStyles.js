@@ -3,17 +3,17 @@ const expenseColors = ['#b50d12', '#bf2f1f', '#c9452c', '#d3583a', '#dc6a48', '#
 export const expenseCategories = [
   { category: 'Bills', amount: 0, color: expenseColors[0] },
   { category: 'Transportation', amount: 0, color: expenseColors[1] },
-  { category: 'Shopping', amount: 0, color: expenseColors[2] },
-  { category: 'Sports', amount: 0, color: expenseColors[3] },
+  { category: 'Shopping', amount: 10, color: expenseColors[2] },
+  { category: 'Sports', amount: 10, color: expenseColors[3] },
   { category: 'Food & Drinks', amount: 0, color: expenseColors[4] },
   { category: 'Books', amount: 0, color: expenseColors[5] },
-  { category: 'House', amount: 0, color: expenseColors[6] },
+  { category: 'House', amount: 10, color: expenseColors[6] },
   { category: 'Entertainment', amount: 0, color: expenseColors[7] },
-  { category: 'Investment', amount: 0, color: expenseColors[8] },
+  { category: 'Investment', amount: 20, color: expenseColors[8] },
   { category: 'Church', amount: 0, color: expenseColors[9] },
-  { category: 'Stationery', amount: 0, color: expenseColors[10] },
-  { category: 'Haircuts', amount: 0, color: expenseColors[11] },
-  { category: 'Church', amount: 0, color: expenseColors[12] },
+  { category: 'Stationery', amount: 30, color: expenseColors[10] },
+  { category: 'Haircuts', amount: 30, color: expenseColors[11] },
+  { category: 'Church', amount: 30, color: expenseColors[12] },
 ];
 
 const incomeColors = ['#123123', '#154731', '#165f40', '#16784f', '#14915f', '#10ac6e', '#0bc77e', '#04e38d'];
