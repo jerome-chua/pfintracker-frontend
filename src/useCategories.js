@@ -9,8 +9,6 @@ export default function useCategories(type) {
   const {store, } = useContext(SavifyContext);
   const { transactions } = store;
 
-  console.log('transactions',transactions);
-
 
   // Filter for income | expense
   const chosenTransacts = transactions.filter((row) => row.transactionType === type)
@@ -42,5 +40,24 @@ export default function useCategories(type) {
     labels: filteredCategories.map((cat) => cat.category),
   };
 
-  return { filteredCategories, total, catData };
+
+  // Month Data
+  const timeData = {
+    labels: ['1', '2', '3', '4', '5', '6'],
+    datasets: [
+      {
+        label: 'Account Balance',
+        data: [12, 19, 3, 5, 2, 3],
+        fill: false,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgba(255, 99, 132, 0.2)',
+      },
+    ],
+  };
+
+  // Weekly Data
+
+  // Daily Data
+
+  return { filteredCategories, total, catData, timeData };
 };
