@@ -12,7 +12,7 @@ export default function CatDoughnut({ type }) {
 
   return (
     <Card className={type === "Income" ? classes.income : classes.expense}>
-      <CardHeader title={type} subheader={"test"} />
+      <CardHeader title={type} subheader={type} />
       <CardContent>
         <Typography variant="h5">${roundTotal.toLocaleString()}</Typography>
         <Doughnut data={catData} />

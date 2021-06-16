@@ -9,6 +9,9 @@ export default function useCategories(type) {
   const {store, } = useContext(SavifyContext);
   const { transactions } = store;
 
+  console.log('transactions',transactions);
+
+
   // Filter for income | expense
   const chosenTransacts = transactions.filter((row) => row.transactionType === type)
 
