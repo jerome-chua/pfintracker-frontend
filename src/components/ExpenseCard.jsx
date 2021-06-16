@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function IncomeCard({ savings }) {
+export default function ExpenseCard({ expenses }) {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
@@ -26,12 +26,12 @@ export default function IncomeCard({ savings }) {
   return (
     <Box m={1}>
       <Card className={cx(cardStyles.root, shadowStyles.root)}>
-        <BrandCardHeader image="../profit.png" extra={"Last updated: "} />
+        <BrandCardHeader image="../loss.png" extra={"Last updated: "} />
         <CardContent className={cardStyles.content}>
           <TextInfoContent
             classes={styles}
-            overline={"Savings"}
-            heading={"$" + savings.toFixed(2)}
+            overline={"Expenses"}
+            heading={"$" + expenses.toLocaleString()}
           />
         </CardContent>
       </Card>

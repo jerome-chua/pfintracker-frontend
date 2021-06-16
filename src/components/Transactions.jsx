@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { SavifyContext, getCategories, getHashTags } from "../store";
 import { makeStyles } from "@material-ui/styles";
+import { Grid, Box } from "@material-ui/core";
 import TransactionsTable from "./TransactionsTable.jsx";
 import TransactionsModal from "./TransactionsModal.jsx";
-import IncomeCard from "./IncomeCard.jsx";
+import SavingsCard from "./SavingsCard.jsx";
+import ExpenseCard from "./ExpenseCard.jsx";
 
 // const useStyles = makeStyles((theme) => ({
 //   table: {
@@ -26,9 +28,21 @@ export default function Transactions() {
 
   const savings = transactions.reduce(
     (acc, currVal) =>
-      currVal.transaction_type === "Expense"
-        ? acc - currVal.amount
-        : acc + currVal.amount,
+      currVal.transactionType === "Income"
+        ? acc + currVal.amount
+        : acc - currVal.amount,
+    0
+  );
+
+  const filterExpense = transactions.filter(
+    (transaction) => transaction.transactionType === "Expense"
+  );
+
+  const expenses = filterExpense.reduce(
+    (acc, currVal) =>
+      currVal.transactionType === "Expense"
+        ? acc + currVal.amount
+        : acc - currVal.amount,
     0
   );
 
@@ -66,20 +80,31 @@ export default function Transactions() {
   };
 
   return (
-    <>
-      <TransactionsModal
-        category={category}
-        handleCatChange={handleCatChange}
-        selectedDate={selectedDate}
-        handleDateChange={handleDateChange}
-        hashtag={hashtag}
-        handleTagChange={handleTagChange}
-        amount={amount}
-        handleAmtChange={handleAmtChange}
-        transactionData={transactionData}
-      />
-      <IncomeCard savings={savings} />
-      <TransactionsTable />
-    </>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <TransactionsModal
+          category={category}
+          handleCatChange={handleCatChange}
+          selectedDate={selectedDate}
+          handleDateChange={handleDateChange}
+          hashtag={hashtag}
+          handleTagChange={handleTagChange}
+          amount={amount}
+          handleAmtChange={handleAmtChange}
+          transactionData={transactionData}
+        />
+      </Grid>
+
+      <Grid item xs={12} md={3}>
+        <SavingsCard savings={parseInt(savings.toFixed(2))} />
+      </Grid>
+      <Grid item xs={12} md={3}>
+        <ExpenseCard expenses={parseInt(expenses.toFixed(2))} />
+      </Grid>
+
+      <Grid item xs={12}>
+        <TransactionsTable />
+      </Grid>
+    </Grid>
   );
 }

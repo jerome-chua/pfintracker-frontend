@@ -8,7 +8,6 @@ export const initialState = {
   transactions: [],
   categories: [],
   hashtags: [],
-  savings: null,
   loading: false,
 }
 
@@ -20,7 +19,6 @@ const GET_CATEGORIES = 'GET_CATEGORIES';
 const GET_HASHTAGS = 'GET_HASHTAGS';
 const RUN_LOADER = 'RUN_LOADER';
 const HIDE_LOADER = 'HIDE_LOADER';
-const CALC_SAVINGS = 'CALC_SAVINGS';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {

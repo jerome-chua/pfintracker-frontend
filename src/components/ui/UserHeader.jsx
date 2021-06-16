@@ -108,7 +108,7 @@ export default function UserHeader(props) {
                   className={classes.logo}
                   src="./logo.svg"
                 />
-                <span className={classes.logo}>SAVIFY</span>
+                <span className={classes.logo}>$AVIFY</span>
               </Typography>
             </Button>
             <Tabs
