@@ -6,7 +6,6 @@ import TransactionsTable from "./TransactionsTable.jsx";
 import TransactionsModal from "./TransactionsModal.jsx";
 import SavingsCard from "./SavingsCard.jsx";
 import ExpenseCard from "./ExpenseCard.jsx";
-import CatDoughnut from "./charts/CatDoughnut.jsx";
 
 // const useStyles = makeStyles((theme) => ({
 //   table: {
