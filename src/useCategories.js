@@ -22,17 +22,22 @@ export default function useCategories(type) {
   chosenTransacts.forEach((transaction) => {
     // Return first category found
     const category = categories.find((cat) => cat.category === transaction.category);
-
+    // Increment each category amount for income | expense type
     if (category) {
       category.amount += transaction.amount;
     }
   });
-
+  
+  // Leave out categories with $0 in doughtnut chart display where
   const filteredCategories = categories.filter((cat) => cat.amount > 0);
 
+  const catData = {
+    dataset: [{ 
+      data: filteredCategories.map((cat) => cat.amount), 
+      bgColor: filteredCategories.map((cat) => cat.color)
+    }],
+    label: filteredCategories.map((cat) => cat.category)
+  } 
 
-
-  return { filteredCategories, total };
+  return { filteredCategories, total, catData };
 };
-
-}
