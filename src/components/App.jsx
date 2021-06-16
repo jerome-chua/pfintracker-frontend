@@ -5,6 +5,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import theme from "./ui/Theme.jsx";
 import UserHeader from "../components/ui/UserHeader";
 import Transactions from "./Transactions.jsx";
+import Dashboard from "./Dashboard.jsx";
 // import Login from "./Login.jsx";
 
 export default function App() {
@@ -21,7 +22,7 @@ export default function App() {
               <Transactions />
             </Route>
             <Route exact path="/dashboard">
-              Dashboard Component
+              <Dashboard />
             </Route>
             <Route exact path="/budget">
               Budget Component
