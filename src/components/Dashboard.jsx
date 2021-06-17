@@ -13,6 +13,8 @@ export default function Dashboard() {
     getTransactions(dispatch);
   }, []);
 
+  // Data and calculations can go into each chart.
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -22,7 +24,7 @@ export default function Dashboard() {
       </Grid>
       <Grid item xs={12}>
         <Box m={1}>
-          <TimeChart />
+          <TimeChart type="Income" />
         </Box>
       </Grid>
       <Grid item xs={10} md={4}>

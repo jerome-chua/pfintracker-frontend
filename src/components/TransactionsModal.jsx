@@ -91,11 +91,12 @@ export default function TransactionsModal({
 
   const sendData = () => {
     runLoader(dispatch);
-    addTransaction(dispatch, transactionData);
-    setTimeout(() => {
-      hideLoader(dispatch);
-      setOpen(false);
-    }, 1000);
+    addTransaction(dispatch, transactionData, () => {
+      setTimeout(() => {
+        hideLoader(dispatch);
+        setOpen(false);
+      }, 1000);
+    });
   };
 
   const modalBody = (

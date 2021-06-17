@@ -134,11 +134,11 @@ export function getTransactions(dispatch, userId=1) {
     });
 }
 
-export function addTransaction(dispatch, transactionData) {
-
+export function addTransaction(dispatch, transactionData, cb) {
   axios.post(`${REACT_APP_BACKEND_URL}/addtransaction`, {transactionData})
     .then((res) => {
       dispatch(addTransactionAction(res.data));
+      cb();
     });
 }
 

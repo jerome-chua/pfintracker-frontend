@@ -71,6 +71,7 @@ export default function Transactions() {
     setAmt(val);
   };
 
+  // DOES THIS HAVE TO BE STORED HERE IN THE PARENT?, IF NOT, PUT ALL OF THESE STATE INTO THE MODAL.
   const transactionData = {
     category,
     selectedDate,

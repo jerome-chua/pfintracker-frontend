@@ -67,6 +67,7 @@ export default function DateRangeModal() {
     setOpen(false);
   };
 
+  // Set to current month? aka 30 days
   const [dateRng, setDateRng] = useState([
     {
       startDate: new Date(),

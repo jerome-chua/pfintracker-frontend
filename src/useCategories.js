@@ -41,6 +41,11 @@ export default function useCategories(type) {
     labels: filteredCategories.map((cat) => cat.category),
   };
 
+  /* 
+    Put these calculations in Dashboard.jsx / TimeChart.jsx ?
+  */
+
+  // Time Chart Data
   const formatDate = (date) => {
     const year = moment(date).format("YYYY");
     const month = moment(date).format("MM");
@@ -54,33 +59,32 @@ export default function useCategories(type) {
   const end = formatDate(dateRange.endDate);
   const monthDiff =  Math.ceil(end.diff(start, 'months', true));
 
-
   const labels = [];
   let startDate = moment(dateRange.startDate);
   let endDate = moment(dateRange.endDate);
 
   if (periodChoice === "month") {
-    // const label = moment(dateRange.startDate).format("MMM YYYY");
-
     while (endDate > startDate) {
       labels.push(moment(startDate).format("MMM YYYY"));
-      startDate.add(1, 'month');  
+      startDate.add(1, 'month'); 
     }
-    
-  } else if (periodChoice === "week") {
-    const label = moment(dateRange.startDate).format("MMM YYYY");
-    console.log("label", label);
-  } else {
-    console.log("here in day")
+  } 
+  else if (periodChoice === "week") {
+    const fromDate = startDate.startOf('week');
+    const toDate = endDate.startOf('week');
+
+  } 
+  else {
+    // console.log("here in day")
   }
   
   // Month Data
   const timeData = {
-    labels: labels,
+    labels: labels, // if date range was set from 1 jan - 1 feb & the periodChoice was month
     datasets: [
       {
         label: 'Account Balance',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [12, 19, 3, 5, 2, 3], // then there will be 2 data points
         fill: false,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgba(255, 99, 132, 0.2)',
