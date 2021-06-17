@@ -29,6 +29,8 @@ export default function CatDoughnut({ type }) {
     setPeriod(newPeriod);
   };
 
+  console.log("dateRange", dateRange.daysDiff);
+
   return (
     <Card className={type === "Income" ? classes.income : classes.expense}>
       <Grid container justify="space-between">
@@ -37,13 +39,25 @@ export default function CatDoughnut({ type }) {
         </Grid>
         <Grid item xs={6}>
           <ToggleButtonGroup value={period} onChange={handlePeriod} exclusive>
-            <ToggleButton value="day" aria-label="day">
+            <ToggleButton
+              value="day"
+              aria-label="day"
+              disabled={dateRange.daysDiff > 50 ? true : false}
+            >
               Day
             </ToggleButton>
-            <ToggleButton value="week" aria-label="week">
+            <ToggleButton
+              value="week"
+              aria-label="week"
+              disabled={dateRange.daysDiff < 7 ? true : false}
+            >
               Week
             </ToggleButton>
-            <ToggleButton value="month" aria-label="month">
+            <ToggleButton
+              value="month"
+              aria-label="month"
+              disabled={dateRange.daysDiff < 31 ? true : false}
+            >
               Month
             </ToggleButton>
           </ToggleButtonGroup>
