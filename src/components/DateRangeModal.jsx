@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { SavifyContext, setDates } from "../store.js";
 import { Modal, Button } from "@material-ui/core";
 import { DateRange } from "@material-ui/icons";
 import { DateRangePicker } from "react-date-range";
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DateRangeModal() {
+  const { store, dispatch } = useContext(SavifyContext);
   const theme = useTheme();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -46,6 +48,7 @@ export default function DateRangeModal() {
   const handleClose = () => {
     setOpen(false);
   };
+
   const [dateRng, setDateRng] = useState([
     {
       startDate: new Date(),
@@ -53,6 +56,10 @@ export default function DateRangeModal() {
       key: "range",
     },
   ]);
+
+  useEffect(() => {
+    setDates(dispatch, dateRng[0]);
+  }, [dateRng]);
 
   const modalBody = (
     <div style={modalStyle} className={classes.paper}>

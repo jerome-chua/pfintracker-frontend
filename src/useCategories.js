@@ -7,7 +7,7 @@ export default function useCategories(type) {
   // resetCategories();
 
   const {store, } = useContext(SavifyContext);
-  const { transactions, periodChoice } = store;
+  const { transactions, periodChoice, dateRange } = store;
 
 
   // Filter for income | expense
@@ -40,6 +40,9 @@ export default function useCategories(type) {
     labels: filteredCategories.map((cat) => cat.category),
   };
 
+
+  console.log("dateRange", dateRange);
+  console.log("period", periodChoice);
 
   // Month Data
   const timeData = {

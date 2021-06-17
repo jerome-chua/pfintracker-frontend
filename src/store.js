@@ -9,6 +9,7 @@ export const initialState = {
   categories: [],
   hashtags: [],
   periodChoice: "",
+  dateRange: {},
   loading: false,
 }
 
@@ -21,6 +22,7 @@ const GET_HASHTAGS = 'GET_HASHTAGS';
 const RUN_LOADER = 'RUN_LOADER';
 const HIDE_LOADER = 'HIDE_LOADER';
 const SET_PERIOD = 'SET_PERIOD';
+const SET_DATES = 'SET_DATES';
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -32,13 +34,15 @@ export function savifyReducer(state, action) {
     case GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case GET_HASHTAGS:
-        return { ...state, hashtags: action.payload };
+      return { ...state, hashtags: action.payload };
     case RUN_LOADER:
-        return {...state, loading: action.payload };
+      return { ...state, loading: action.payload };
     case HIDE_LOADER:
-        return {...state, loading: action.payload };
+      return { ...state, loading: action.payload };
     case SET_PERIOD:
-      return {...state, periodChoice: action.payload };
+      return { ...state, periodChoice: action.payload };
+    case SET_DATES:
+      return { ...state, dateRange: action.payload };
     default:
       return state
   }
@@ -93,6 +97,13 @@ export function setPeriodAction(period) {
     type: SET_PERIOD,
     payload: period,   
   } 
+}
+
+export function setDatesAction(dateRange) {
+  return {
+    type: SET_DATES,
+    payload: dateRange,
+  }
 }
 
 
@@ -155,4 +166,8 @@ export function hideLoader(dispatch) {
 
 export function setPeriodChoice(dispatch, periodChoice) {
   dispatch(setPeriodAction(periodChoice));
+}
+
+export function setDates(dispatch, dateRange) {
+  dispatch(setDatesAction(dateRange));
 }
