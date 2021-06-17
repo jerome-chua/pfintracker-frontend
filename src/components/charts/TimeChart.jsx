@@ -14,6 +14,7 @@ import useCategories from "../../useCategories.js";
 
 export default function CatDoughnut({ type }) {
   const { store, dispatch } = useContext(SavifyContext);
+  const { dateRange } = store;
   const classes = useStyles();
   const { total, timeData } = useCategories(type);
   const [period, setPeriod] = useState("month");

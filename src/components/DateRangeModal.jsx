@@ -34,6 +34,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const formatDate = (date) => {
+  const year = moment(date).format("YYYY");
+  const month = moment(date).format("MM");
+  const day = moment(date).format("DD");
+  const dateFormat = [year, month, day].map((i) => parseInt(i));
+
+  return moment(dateFormat);
+};
+
+const calcDiff = (start, end) => {
+  start = formatDate(start);
+  end = formatDate(end);
+
+  const diff = Math.ceil(end.diff(start, "days", true));
+
+  return diff;
+};
+
 export default function DateRangeModal() {
   const { store, dispatch } = useContext(SavifyContext);
   const theme = useTheme();
@@ -58,7 +76,8 @@ export default function DateRangeModal() {
   ]);
 
   useEffect(() => {
-    setDates(dispatch, dateRng[0]);
+    const daysDiff = calcDiff(dateRng[0].startDate, dateRng[0].endDate);
+    setDates(dispatch, { ...dateRng[0], daysDiff });
   }, [dateRng]);
 
   const modalBody = (

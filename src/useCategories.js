@@ -42,31 +42,30 @@ export default function useCategories(type) {
   };
 
   const formatDate = (date) => {
-  const year = moment(date).format("YYYY");
-  const month = moment(date).format("MM");
-  const day = moment(date).format("DD");
-  const dateFormat = [year, month, day].map(i => parseInt(i))
+    const year = moment(date).format("YYYY");
+    const month = moment(date).format("MM");
+    const day = moment(date).format("DD");
+    const dateFormat = [year, month, day].map(i => parseInt(i))
 
-  return moment(dateFormat);
+    return moment(dateFormat);
   }
 
   const start = formatDate(dateRange.startDate);
   const end = formatDate(dateRange.endDate);
-
-  let startDate = moment(dateRange.startDate);
-  let endDate = moment(dateRange.endDate);
+  const monthDiff =  Math.ceil(end.diff(start, 'months', true));
 
 
   const labels = [];
+  let startDate = moment(dateRange.startDate);
+  let endDate = moment(dateRange.endDate);
+
   if (periodChoice === "month") {
-    const label = moment(dateRange.startDate).format("MMM YYYY");
-    const diff =  Math.ceil(end.diff(start, 'months', true));
+    // const label = moment(dateRange.startDate).format("MMM YYYY");
 
     while (endDate > startDate) {
-      console.log("Check" , endDate, startDate)
       labels.push(moment(startDate).format("MMM YYYY"));
       startDate.add(1, 'month');  
-   }
+    }
     
   } else if (periodChoice === "week") {
     const label = moment(dateRange.startDate).format("MMM YYYY");
