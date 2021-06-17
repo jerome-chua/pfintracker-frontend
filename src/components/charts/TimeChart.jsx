@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { SavifyContext, setPeriodChoice } from "../../store.js";
 import {
   Grid,
@@ -25,10 +25,6 @@ export default function TimeChart({ type }) {
   const [period, setPeriod] = useState("month"); // Sets "day", week", "month"
 
   const roundTotal = parseInt(total.toFixed(2));
-
-  // useEffect(() => {
-  //   setPeriodChoice(dispatch, period);
-  // }, [period]);
 
   const handlePeriod = (evt, newPeriod) => {
     setPeriod(newPeriod);

@@ -65,17 +65,22 @@ export default function useCategories(type) {
 
   if (periodChoice === "month") {
     while (endDate > startDate) {
-      labels.push(moment(startDate).format("MMM YYYY"));
+      const eachMonth = moment(startDate).format("MMM YYYY");
+      labels.push(eachMonth);
       startDate.add(1, 'month'); 
     }
   } 
   else if (periodChoice === "week") {
-    const fromDate = startDate.startOf('week');
-    const toDate = endDate.startOf('week');
-
+    while (endDate > startDate) {
+      const weekStart = startDate.startOf('week').format("DD MMM").toString()
+      const weekEnd = startDate.endOf('week').format("DD MMM").toString();
+      const eachWeek = `${weekStart} - ${weekEnd}`
+      labels.push(eachWeek);
+      startDate.add(7, 'days'); 
+    }
   } 
   else {
-    // console.log("here in day")
+    console.log("here in day")
   }
   
   // Month Data
