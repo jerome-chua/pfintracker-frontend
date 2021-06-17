@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { SavifyContext, setPeriodAction } from "../../store.js";
+import React, { useState, useContext, useEffect } from "react";
+import { SavifyContext, setPeriodChoice } from "../../store.js";
 import {
   Grid,
   Card,
@@ -20,9 +20,12 @@ export default function CatDoughnut({ type }) {
 
   const roundTotal = parseInt(total.toFixed(2));
 
+  useEffect(() => {
+    setPeriodChoice(dispatch, period);
+  }, [period]);
+
   const handlePeriod = (evt, newPeriod) => {
     setPeriod(newPeriod);
-    dispatch(setPeriodAction(newPeriod));
   };
 
   return (

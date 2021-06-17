@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { SavifyContext } from "./store.js";
 import { incomeCategories, expenseCategories, resetCategories } from './components/ui/categoryStyles.js';
+import moment from 'moment';
 
 
 export default function useCategories(type) {
@@ -40,10 +41,32 @@ export default function useCategories(type) {
     labels: filteredCategories.map((cat) => cat.category),
   };
 
+const formatDate = (date) => {
+  const year = moment(date).format("YYYY");
+  const month = moment(date).format("MM");
+  const day = moment(date).format("DD");
 
-  console.log("dateRange", dateRange);
-  console.log("period", periodChoice);
+  const dateFormat = [year, month, day].map(i => parseInt(i))
 
+  return moment(dateFormat);
+}
+
+const start = formatDate(dateRange.startDate);
+const end = formatDate(dateRange.endDate);
+
+  if (periodChoice === "month") {
+    const label = moment(dateRange.startDate).format("MMM YYYY");
+    const diff =  Math.ceil(end.diff(start, 'months', true));
+
+    console.log(diff);
+    
+  } else if (periodChoice === "week") {
+    const label = moment(dateRange.startDate).format("MMM YYYY");
+    console.log("label", label);
+  } else {
+    console.log("here in day")
+  }
+  
   // Month Data
   const timeData = {
     labels: ['1', '2', '3', '4', '5', '6'],
