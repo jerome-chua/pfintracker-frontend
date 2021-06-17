@@ -65,13 +65,13 @@ export default function useCategories(type) {
 
   if (periodChoice === "month") {
     while (endDate > startDate) {
-      const eachMonth = moment(startDate).format("MMM YYYY");
+      const eachMonth = moment(startDate).format("MMM 'YY");
       labels.push(eachMonth);
       startDate.add(1, 'month'); 
     }
   } 
   else if (periodChoice === "week") {
-    while (endDate > startDate) {
+    while (moment(dateRange.endDate, "DD-MM-YYYY").add('days', 7) > startDate) {
       const weekStart = startDate.startOf('week').format("DD MMM").toString()
       const weekEnd = startDate.endOf('week').format("DD MMM").toString();
       const eachWeek = `${weekStart} - ${weekEnd}`
@@ -80,7 +80,11 @@ export default function useCategories(type) {
     }
   } 
   else {
-    console.log("here in day")
+    while (endDate > startDate) {
+      const eachDay = moment(startDate).format("DD MMM 'YY");
+      labels.push(eachDay);
+      startDate.add(1, 'days'); 
+    }
   }
   
   // Month Data
