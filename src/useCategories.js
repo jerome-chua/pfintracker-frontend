@@ -1,12 +1,10 @@
 import { useContext } from "react";
 import { SavifyContext } from "./store.js";
-import { incomeCategories, expenseCategories, resetCategories } from './components/ui/categoryStyles.js';
+import { incomeCategories, expenseCategories } from './components/ui/categoryStyles.js';
 import moment from 'moment';
 
 
 export default function useCategories(type) {
-  // resetCategories();
-
   const {store, } = useContext(SavifyContext);
   const { transactions, periodChoice, dateRange } = store;
 
@@ -44,20 +42,6 @@ export default function useCategories(type) {
   /* 
     Put these calculations in Dashboard.jsx / TimeChart.jsx ?
   */
-
-  // Time Chart Data
-  const formatDate = (date) => {
-    const year = moment(date).format("YYYY");
-    const month = moment(date).format("MM");
-    const day = moment(date).format("DD");
-    const dateFormat = [year, month, day].map(i => parseInt(i))
-
-    return moment(dateFormat);
-  }
-
-  const start = formatDate(dateRange.startDate);
-  const end = formatDate(dateRange.endDate);
-  const monthDiff =  Math.ceil(end.diff(start, 'months', true));
 
   const labels = [];
   let startDate = moment(dateRange.startDate);
@@ -100,10 +84,6 @@ export default function useCategories(type) {
       },
     ],
   };
-
-  // Weekly Data
-
-  // Daily Data
 
   return { filteredCategories, total, catData, timeData };
 };
