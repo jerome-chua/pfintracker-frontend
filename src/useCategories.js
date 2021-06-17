@@ -41,24 +41,32 @@ export default function useCategories(type) {
     labels: filteredCategories.map((cat) => cat.category),
   };
 
-const formatDate = (date) => {
+  const formatDate = (date) => {
   const year = moment(date).format("YYYY");
   const month = moment(date).format("MM");
   const day = moment(date).format("DD");
-
   const dateFormat = [year, month, day].map(i => parseInt(i))
 
   return moment(dateFormat);
-}
+  }
 
-const start = formatDate(dateRange.startDate);
-const end = formatDate(dateRange.endDate);
+  const start = formatDate(dateRange.startDate);
+  const end = formatDate(dateRange.endDate);
 
+  let startDate = moment(dateRange.startDate);
+  let endDate = moment(dateRange.endDate);
+
+
+  const labels = [];
   if (periodChoice === "month") {
     const label = moment(dateRange.startDate).format("MMM YYYY");
     const diff =  Math.ceil(end.diff(start, 'months', true));
 
-    console.log(diff);
+    while (endDate > startDate) {
+      console.log("Check" , endDate, startDate)
+      labels.push(moment(startDate).format("MMM YYYY"));
+      startDate.add(1, 'month');  
+   }
     
   } else if (periodChoice === "week") {
     const label = moment(dateRange.startDate).format("MMM YYYY");
@@ -69,7 +77,7 @@ const end = formatDate(dateRange.endDate);
   
   // Month Data
   const timeData = {
-    labels: ['1', '2', '3', '4', '5', '6'],
+    labels: labels,
     datasets: [
       {
         label: 'Account Balance',
