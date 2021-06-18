@@ -47,18 +47,25 @@ export default function useCategories(type) {
   let startDate = moment(dateRange.startDate);
   let endDate = moment(dateRange.endDate);
 
-  const tally = (labelDate, periodChoice='day') => {
-    const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
+  const tally = (labelDate, periodChoice) => {
+    let totalSavings;
 
-    const dayTotal = matchedTransacts.reduce(
-      (acc, currVal) =>
-        currVal.transactionType = "Income"
-          ? acc + currVal.amount
-          : acc - currVal.amount,
-      0
-    );
+    if (periodChoice === "day") {
+       const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
 
-    return dayTotal;
+      totalSavings = matchedTransacts.reduce(
+        (acc, currVal) =>
+          currVal.transactionType === "Income"
+            ? acc + currVal.amount
+            : acc - currVal.amount,
+        0
+      );
+    } else if (periodChoice === "week") {
+
+    }
+   
+
+    return totalSavings;
   }
 
 
@@ -71,11 +78,19 @@ export default function useCategories(type) {
   } 
   else if (periodChoice === "week") {
     while (moment(dateRange.endDate, "DD-MM-YYYY").add('days', 7) > startDate) {
+      // Labels
       const weekStart = startDate.startOf('week').format("DD MMM").toString()
       const weekEnd = startDate.endOf('week').format("DD MMM").toString();
-      const eachWeek = `${weekStart} - ${weekEnd}`
-      labels.push(eachWeek);
+      const eachWeekLabel = `${weekStart} - ${weekEnd}`
+      labels.push(eachWeekLabel);
       startDate.add(7, 'days'); 
+
+      // Data processing
+      const startData = startDate.startOf('week').format("YYYY-MM-DD");
+      const endData = startDate.startOf('week').format("YYYY-MM-DD");
+      const eachWeekData = `${startData}-${endData}`;
+
+      dataPoints.push(tally(eachWeekData, 'week'));
     }
   } 
   else {
@@ -94,6 +109,9 @@ export default function useCategories(type) {
   }, 0)
 
   const timeTotal = Math.max(...cumulative);
+
+  console.log(dataPoints);
+
   
   // Day/Week/Month Data
   const timeData = {

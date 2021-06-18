@@ -5,6 +5,18 @@ import DateRangeModal from "./DateRangeModal.jsx";
 import CatDoughnut from "./charts/CatDoughnut.jsx";
 import TimeChart from "./charts/TimeChart.jsx";
 
+// Calculate total of account balance
+const calcSavings = (transactions) => {
+  const total = transactions.reduce(
+    (acc, currVal) =>
+      currVal.transactionType === "Income"
+        ? acc + currVal.amount
+        : acc - currVal.amount,
+    0
+  );
+  return total;
+};
+
 export default function Dashboard() {
   const { store, dispatch } = useContext(SavifyContext);
   const { transactions } = store;
@@ -12,8 +24,6 @@ export default function Dashboard() {
   useEffect(() => {
     getTransactions(dispatch);
   }, []);
-
-  // Data and calculations can go into each chart.
 
   return (
     <Grid container>
@@ -24,7 +34,7 @@ export default function Dashboard() {
       </Grid>
       <Grid item xs={12}>
         <Box m={1}>
-          <TimeChart type="Income" />
+          <TimeChart type="Income" total={calcSavings(transactions)} />
         </Box>
       </Grid>
       <Grid item xs={10} md={4}>

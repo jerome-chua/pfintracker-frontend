@@ -6,19 +6,15 @@ import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import { Line } from "react-chartjs-2";
 import useStyles from "./styles";
 import useCategories from "../../useCategories.js";
-import { AccountBalanceWallet } from "@material-ui/icons";
 
-// PUTTING SOMETHING IN LOCAL STATE IS TO DEFAULT,
-// TO ORGANISE HIERARCHY OF DATA
-
-export default function TimeChart({ type }) {
+export default function TimeChart({ type, total }) {
   console.log("Time Chart renders");
 
   const { store, dispatch } = useContext(SavifyContext);
   const { dateRange } = store;
   const classes = useStyles();
-  const { timeTotal, timeData } = useCategories(type);
-  const [period, setPeriod] = useState("month"); // Sets "day", week", "month"
+  const { timeData } = useCategories(type);
+  const [period, setPeriod] = useState("day"); // Sets "day", week", "month"
 
   const handlePeriod = (evt, newPeriod) => {
     setPeriod(newPeriod);
@@ -61,7 +57,7 @@ export default function TimeChart({ type }) {
         </Grid>
         <Grid item xs={12}>
           <CardContent>
-            <Typography variant="h5">${timeTotal.toLocaleString()}</Typography>
+            <Typography variant="h5">${total.toLocaleString()}</Typography>
             <Line data={timeData} />
           </CardContent>
         </Grid>
