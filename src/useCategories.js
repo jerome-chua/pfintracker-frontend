@@ -93,8 +93,7 @@ export default function useCategories(type) {
     return cumulative[i] = a + b
   }, 0)
 
-  console.log("dataPoints", dataPoints)
-  console.log("cumulative", cumulative)
+  const timeTotal = Math.max(...cumulative);
   
   // Day/Week/Month Data
   const timeData = {
@@ -110,5 +109,5 @@ export default function useCategories(type) {
     ],
   };
 
-  return { filteredCategories, total, catData, timeData };
+  return { filteredCategories, total, catData, timeData, timeTotal };
 };

@@ -29,7 +29,7 @@ export default function Dashboard() {
       </Grid>
       <Grid item xs={10} md={4}>
         <Box m={2}>
-          <CatDoughnut type="Expense" />
+          <CatDoughnut image="../loss.png" type="Expense" />
         </Box>
       </Grid>
       <Grid item xs={10} md={4}>
