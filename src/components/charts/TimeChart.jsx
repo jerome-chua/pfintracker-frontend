@@ -45,7 +45,7 @@ export default function TimeChart({ type }) {
             <ToggleButton
               value="day"
               aria-label="day"
-              disabled={dateRange.daysDiff > 50 ? true : false}
+              disabled={dateRange.daysDiff > 70 ? true : false}
             >
               Day
             </ToggleButton>

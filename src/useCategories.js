@@ -83,12 +83,18 @@ export default function useCategories(type) {
       const eachDay = moment(startDate).format("YYYY-MM-DD");
       labels.push(eachDay);
       startDate.add(1, 'days');
-      
+
       dataPoints.push(tally(eachDay, 'day'));
     }
   }
 
+  const cumulative = [];
+  dataPoints.reduce((a, b, i) => {
+    return cumulative[i] = a + b
+  }, 0)
+
   console.log("dataPoints", dataPoints)
+  console.log("cumulative", cumulative)
   
   // Day/Week/Month Data
   const timeData = {
@@ -96,7 +102,7 @@ export default function useCategories(type) {
     datasets: [
       {
         label: 'Savings',
-        data: dataPoints,
+        data: cumulative,
         fill: false,
         backgroundColor: 'rgb(23, 112, 110)',
         borderColor: 'rgb(23, 112, 110, 0.3)',
