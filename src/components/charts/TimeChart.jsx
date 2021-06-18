@@ -21,6 +21,13 @@ export default function TimeChart({ type, total }) {
     setPeriodChoice(dispatch, newPeriod); // Sets "day", week", "month"
   };
 
+  const options = {
+    scales: {
+      yAxes: [{ ticks: { beginAtZero: true, fontSize: 16 } }],
+      xAxes: [{ ticks: { beginAtZero: true, fontSize: 16 } }],
+    },
+  };
+
   // When you pass the data needed into the chart, you can calculuate the total sum
   // for each category right here:
 
@@ -58,7 +65,7 @@ export default function TimeChart({ type, total }) {
         <Grid item xs={12}>
           <CardContent>
             <Typography variant="h5">${total.toLocaleString()}</Typography>
-            <Line data={timeData} />
+            <Line data={timeData} options={options} />
           </CardContent>
         </Grid>
       </Grid>

@@ -112,9 +112,12 @@ export default function useCategories(type) {
       {
         label: 'Savings',
         data: cumulative,
-        fill: false,
-        backgroundColor: 'rgb(23, 112, 110)',
-        borderColor: 'rgb(23, 112, 110, 0.3)',
+        fill: true,
+        backgroundColor: 'rgb(23, 112, 110, 0.2)',
+        borderColor: 'rgb(23, 112, 110, 0.8)',
+        pointHoverBorderWidth: 7,
+        pointRadius: 0,
+        pointHitRadius: 30,
       },
     ],
   };
