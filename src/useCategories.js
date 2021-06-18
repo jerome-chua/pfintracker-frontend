@@ -47,6 +47,8 @@ export default function useCategories(type) {
   let startDate = moment(dateRange.startDate);
   let endDate = moment(dateRange.endDate);
 
+  console.log("===== 🍔startDate", startDate);
+
   const tally = (labelDate, periodChoice) => {
     let totalSavings;
 
@@ -61,9 +63,16 @@ export default function useCategories(type) {
         0
       );
     } else if (periodChoice === "week") {
+      const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
 
+       totalSavings = matchedTransacts.reduce(
+        (acc, currVal) =>
+          currVal.transactionType === "Income"
+            ? acc + currVal.amount
+            : acc - currVal.amount,
+        0
+      );
     }
-   
 
     return totalSavings;
   }
@@ -83,14 +92,11 @@ export default function useCategories(type) {
       const weekEnd = startDate.endOf('week').format("DD MMM").toString();
       const eachWeekLabel = `${weekStart} - ${weekEnd}`
       labels.push(eachWeekLabel);
-      startDate.add(7, 'days'); 
 
-      // Data processing
-      const startData = startDate.startOf('week').format("YYYY-MM-DD");
-      const endData = startDate.startOf('week').format("YYYY-MM-DD");
-      const eachWeekData = `${startData}-${endData}`;
+      // Have to check startDate, it isnt showing up properly.
+      dataPoints.push(tally(startDate, 'week'));
 
-      dataPoints.push(tally(eachWeekData, 'week'));
+      startDate.add(7, 'days');
     }
   } 
   else {
@@ -103,15 +109,12 @@ export default function useCategories(type) {
     }
   }
 
+  console.log("📅💰dataPoints ==============\n", dataPoints)
+
   const cumulative = [];
   dataPoints.reduce((a, b, i) => {
     return cumulative[i] = a + b
   }, 0)
-
-  const timeTotal = Math.max(...cumulative);
-
-  console.log(dataPoints);
-
   
   // Day/Week/Month Data
   const timeData = {
@@ -127,5 +130,5 @@ export default function useCategories(type) {
     ],
   };
 
-  return { filteredCategories, total, catData, timeData, timeTotal };
+  return { filteredCategories, total, catData, timeData };
 };
