@@ -47,42 +47,32 @@ export default function useCategories(type) {
   let startDate = moment(dateRange.startDate);
   let endDate = moment(dateRange.endDate);
 
-  console.log("===== 🍔startDate", startDate);
-
   const tally = (labelDate, periodChoice) => {
     let totalSavings;
 
-    if (periodChoice === "day") {
-       const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
+    const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
 
-      totalSavings = matchedTransacts.reduce(
-        (acc, currVal) =>
-          currVal.transactionType === "Income"
-            ? acc + currVal.amount
-            : acc - currVal.amount,
-        0
-      );
-    } else if (periodChoice === "week") {
-      const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
-
-       totalSavings = matchedTransacts.reduce(
-        (acc, currVal) =>
-          currVal.transactionType === "Income"
-            ? acc + currVal.amount
-            : acc - currVal.amount,
-        0
-      );
-    }
-
+    totalSavings = matchedTransacts.reduce(
+      (acc, currVal) =>
+        currVal.transactionType === "Income"
+          ? acc + currVal.amount
+          : acc - currVal.amount,
+      0
+    );
     return totalSavings;
   }
 
 
   if (periodChoice === "month") {
     while (endDate > startDate) {
+      // Labels
       const eachMonth = moment(startDate).format("MMM 'YY");
       labels.push(eachMonth);
       startDate.add(1, 'month'); 
+
+      // Data
+      dataPoints.push(tally(startDate, 'month'));
+      startDate.add(30, 'days');
     }
   } 
   else if (periodChoice === "week") {
@@ -93,23 +83,22 @@ export default function useCategories(type) {
       const eachWeekLabel = `${weekStart} - ${weekEnd}`
       labels.push(eachWeekLabel);
 
-      // Have to check startDate, it isnt showing up properly.
+      // Data
       dataPoints.push(tally(startDate, 'week'));
-
       startDate.add(7, 'days');
     }
   } 
   else {
     while (endDate > startDate) {
+      // Labels
       const eachDay = moment(startDate).format("YYYY-MM-DD");
-      labels.push(eachDay);
-      startDate.add(1, 'days');
+      labels.push(eachDay);   
 
+      // Data
       dataPoints.push(tally(eachDay, 'day'));
+      startDate.add(1, 'days');
     }
   }
-
-  console.log("📅💰dataPoints ==============\n", dataPoints)
 
   const cumulative = [];
   dataPoints.reduce((a, b, i) => {
