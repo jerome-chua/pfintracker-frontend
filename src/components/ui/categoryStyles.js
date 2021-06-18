@@ -19,7 +19,7 @@ const incomeColors = ['#123123', '#154731', '#165f40', '#16784f', '#14915f', '#1
 
 export const incomeCategories = [
   { category: 'Business', amount: 0, color: incomeColors[0] },
-  { category: 'Investments', amount: 0, color: incomeColors[1] },
+  { category: 'Investment', amount: 0, color: incomeColors[1] },
   { category: 'Extra Income', amount: 0, color: incomeColors[2] },
   { category: 'Deposits', amount: 0, color: incomeColors[3] },
   { category: 'Rental Income', amount: 0, color: incomeColors[4] },

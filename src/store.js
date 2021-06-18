@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true; // Tell backend about the existence of the front end (specifying the URL)  get axios to send cookies to a non-origin domai
 
 
 // INITIAL STATE 

@@ -3,7 +3,6 @@ import { SavifyContext } from "./store.js";
 import { incomeCategories, expenseCategories } from './components/ui/categoryStyles.js';
 import moment from 'moment';
 
-
 export default function useCategories(type) {
   const {store, } = useContext(SavifyContext);
   const { transactions, periodChoice, dateRange } = store;
@@ -44,8 +43,24 @@ export default function useCategories(type) {
   */
 
   const labels = [];
+  const dataPoints = [];
   let startDate = moment(dateRange.startDate);
   let endDate = moment(dateRange.endDate);
+
+  const tally = (labelDate, periodChoice='day') => {
+    const matchedTransacts = transactions.filter((row) => moment(row.createdAt, 'YYYY-MM-DD').isSame(moment(labelDate, 'YYYY-MM-DD'), periodChoice));
+
+    const dayTotal = matchedTransacts.reduce(
+      (acc, currVal) =>
+        currVal.transactionType = "Income"
+          ? acc + currVal.amount
+          : acc - currVal.amount,
+      0
+    );
+
+    return dayTotal;
+  }
+
 
   if (periodChoice === "month") {
     while (endDate > startDate) {
@@ -65,22 +80,26 @@ export default function useCategories(type) {
   } 
   else {
     while (endDate > startDate) {
-      const eachDay = moment(startDate).format("DD MMM 'YY");
+      const eachDay = moment(startDate).format("YYYY-MM-DD");
       labels.push(eachDay);
-      startDate.add(1, 'days'); 
+      startDate.add(1, 'days');
+      
+      dataPoints.push(tally(eachDay, 'day'));
     }
   }
+
+  console.log("dataPoints", dataPoints)
   
-  // Month Data
+  // Day/Week/Month Data
   const timeData = {
-    labels: labels, // if date range was set from 1 jan - 1 feb & the periodChoice was month
+    labels: labels, 
     datasets: [
       {
-        label: 'Account Balance',
-        data: [12, 19, 3, 5, 2, 3], // then there will be 2 data points
+        label: 'Savings',
+        data: dataPoints,
         fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: 'rgb(23, 112, 110)',
+        borderColor: 'rgb(23, 112, 110, 0.3)',
       },
     ],
   };
