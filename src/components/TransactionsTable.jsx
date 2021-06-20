@@ -15,6 +15,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import TransactionsTableToolBar from "./TransactionsTableToolBar.jsx";
 
 const useRowStyles = makeStyles({
   table: {
@@ -34,6 +35,7 @@ export default function TransactionsTable() {
 
   return (
     <Box mt={3} m={1}>
+      <TransactionsTableToolBar numSelected={5} />
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="transactions-table">
           <TableHead>
