@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SavifyContext, getTransactions } from "../store.js";
 import {
   Table,
@@ -13,6 +13,7 @@ import {
   Typography,
   TextField,
   MenuItem,
+  Checkbox,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TransactionsTableToolBar from "./TransactionsTableToolBar.jsx";
@@ -27,11 +28,33 @@ export default function TransactionsTable() {
   const classes = useRowStyles();
   const { store, dispatch } = useContext(SavifyContext);
   const { transactions } = store;
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     // TODO: Include userId as second params after dispatch (once Login done)
     getTransactions(dispatch);
   }, [transactions.length]);
+
+  const handleClick = (evt, name) => {
+    const selectedIndex = selected.indexOf(name);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+    setSelected(newSelected);
+  };
+
+  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   return (
     <Box mt={3} m={1}>
@@ -40,6 +63,7 @@ export default function TransactionsTable() {
         <Table className={classes.table} aria-label="transactions-table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Category</TableCell>
               <TableCell align="right">Date</TableCell>
               <TableCell align="right">Note</TableCell>
@@ -48,11 +72,23 @@ export default function TransactionsTable() {
               <TableCell align="right">Currency</TableCell>
             </TableRow>
           </TableHead>
-          {/* TODO: include Collapsable/Modal to update each transaction */}
           <TableBody>
-            {transactions.map((row) => {
+            {transactions.map((row, index) => {
+              const isItemSelected = isSelected(row.id);
+              const labelId = `enhanced-table-checkbox-${index}`;
+
               return (
-                <TableRow key={row.id.toString()}>
+                <TableRow
+                  key={row.id.toString()}
+                  onClick={(event) => handleClick(event, row.id)}
+                  role="checkbox"
+                >
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={isItemSelected}
+                      inputProps={{ "aria-labelledby": labelId }}
+                    />
+                  </TableCell>
                   <TableCell align="left">{row.category}</TableCell>
                   <TableCell align="right">{row.createdAt}</TableCell>
                   <TableCell align="right">{row.note}</TableCell>
