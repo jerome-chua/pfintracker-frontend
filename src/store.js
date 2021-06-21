@@ -183,8 +183,8 @@ export function setDates(dispatch, dateRange) {
   dispatch(setDatesAction(dateRange));
 }
 
-export function deleteTransactions(dispatch) {
-  axios.delete(`${REACT_APP_BACKEND_URL}/deletetransactions`)
+export function deleteTransactions(dispatch, userId=1, toBeDeleted) {
+  axios.delete(`${REACT_APP_BACKEND_URL}/deletetransactions/${userId}`, {data: toBeDeleted})
     .then((res) => {
       // Return an array with transaction alreaedy deleted.
       dispatch(deleteAction(res.data));

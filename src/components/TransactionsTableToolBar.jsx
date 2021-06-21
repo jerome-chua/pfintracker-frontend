@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import { SavifyContext, deleteTransactions } from "../store.js";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -29,11 +30,14 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 export default function TransactionsTableToolbar({ numSelected, selected }) {
+  const { dispatch } = useContext(SavifyContext);
   const classes = useToolbarStyles();
   const deleteRef = useRef(null);
 
   const handleClick = () => {
-    console.log(selected);
+    console.log("Delete button clicked. Selected", selected);
+
+    deleteTransactions(dispatch, 1, selected);
   };
 
   return (
