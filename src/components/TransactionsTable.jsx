@@ -5,6 +5,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TablePagination,
   Paper,
   TableHead,
   TableRow,
@@ -30,6 +31,8 @@ export default function TransactionsTable() {
   const { store, dispatch } = useContext(SavifyContext);
   const { transactions } = store;
   const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     // TODO: Include userId as second params after dispatch (once Login done)
@@ -56,6 +59,19 @@ export default function TransactionsTable() {
   };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
+
+  const handleChangePage = (evt, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (evt) => {
+    setRowsPerPage(parseInt(evt.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows =
+    rowsPerPage -
+    Math.min(rowsPerPage, transactions.length - page * rowsPerPage);
 
   return (
     <Box mt={3} m={1}>
@@ -106,6 +122,15 @@ export default function TransactionsTable() {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={transactions.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
     </Box>
   );
 }
