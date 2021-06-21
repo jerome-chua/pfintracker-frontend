@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import TransactionsTableToolBar from "./TransactionsTableToolBar.jsx";
+import moment from "moment";
 
 const useRowStyles = makeStyles({
   table: {
@@ -90,10 +91,14 @@ export default function TransactionsTable() {
                     />
                   </TableCell>
                   <TableCell align="left">{row.category}</TableCell>
-                  <TableCell align="right">{row.createdAt}</TableCell>
+                  <TableCell align="right">
+                    {moment(row.createdAt).format("do MMM YYYY")}
+                  </TableCell>
                   <TableCell align="right">{row.note}</TableCell>
                   <TableCell align="right">{row.hashtag}</TableCell>
-                  <TableCell align="right">{row.amount.toFixed(2)}</TableCell>
+                  <TableCell align="right">
+                    {"$" + row.amount.toFixed(2)}
+                  </TableCell>
                   <TableCell align="right">{row.currency}</TableCell>
                 </TableRow>
               );
