@@ -20,11 +20,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import TransactionsTableToolBar from "./TransactionsTableToolBar.jsx";
 import moment from "moment";
 
-const useRowStyles = makeStyles({
+const useRowStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-});
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 export default function TransactionsTable() {
   const classes = useRowStyles();
@@ -75,62 +79,66 @@ export default function TransactionsTable() {
 
   return (
     <Box mt={3} m={1}>
-      <TransactionsTableToolBar numSelected={5} />
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="transactions-table">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell align="right">Date</TableCell>
-              <TableCell align="right">Note</TableCell>
-              <TableCell align="right">Hashtag</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Currency</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactions.map((row, index) => {
-              const isItemSelected = isSelected(row.id);
-              const labelId = `enhanced-table-checkbox-${index}`;
+      <Paper className={classes.paper}>
+        <TransactionsTableToolBar numSelected={5} />
+        <TableContainer>
+          <Table className={classes.table} aria-label="transactions-table">
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell align="right">Date</TableCell>
+                <TableCell align="right">Note</TableCell>
+                <TableCell align="right">Hashtag</TableCell>
+                <TableCell align="right">Amount</TableCell>
+                <TableCell align="right">Currency</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {transactions
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.id);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-              return (
-                <TableRow
-                  key={row.id.toString()}
-                  onClick={(event) => handleClick(event, row.id)}
-                  role="checkbox"
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={isItemSelected}
-                      inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  </TableCell>
-                  <TableCell align="left">{row.category}</TableCell>
-                  <TableCell align="right">
-                    {moment(row.createdAt).format("do MMM YYYY")}
-                  </TableCell>
-                  <TableCell align="right">{row.note}</TableCell>
-                  <TableCell align="right">{row.hashtag}</TableCell>
-                  <TableCell align="right">
-                    {"$" + row.amount.toFixed(2)}
-                  </TableCell>
-                  <TableCell align="right">{row.currency}</TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={transactions.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+                  return (
+                    <TableRow
+                      key={row.id.toString()}
+                      onClick={(event) => handleClick(event, row.id)}
+                      role="checkbox"
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={isItemSelected}
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </TableCell>
+                      <TableCell align="left">{row.category}</TableCell>
+                      <TableCell align="right">
+                        {moment(row.createdAt).format("do MMM YYYY")}
+                      </TableCell>
+                      <TableCell align="right">{row.note}</TableCell>
+                      <TableCell align="right">{row.hashtag}</TableCell>
+                      <TableCell align="right">
+                        {"$" + row.amount.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">{row.currency}</TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={transactions.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
     </Box>
   );
 }
