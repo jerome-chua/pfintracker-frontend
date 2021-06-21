@@ -16,11 +16,11 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === "light"
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+          color: theme.tableData.primary.main,
+          backgroundColor: lighten(theme.palette.secondary.orange, 0.85),
         }
       : {
-          color: theme.palette.text.primary,
+          color: theme.tableData.primary.secondary,
           backgroundColor: theme.palette.secondary.dark,
         },
   title: {

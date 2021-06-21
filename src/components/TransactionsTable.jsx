@@ -43,12 +43,12 @@ export default function TransactionsTable() {
     getTransactions(dispatch);
   }, [transactions.length]);
 
-  const handleClick = (evt, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (evt, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -62,7 +62,7 @@ export default function TransactionsTable() {
     setSelected(newSelected);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
 
   const handleChangePage = (evt, newPage) => {
     setPage(newPage);
@@ -73,14 +73,10 @@ export default function TransactionsTable() {
     setPage(0);
   };
 
-  const emptyRows =
-    rowsPerPage -
-    Math.min(rowsPerPage, transactions.length - page * rowsPerPage);
-
   return (
     <Box mt={3} m={1}>
       <Paper className={classes.paper}>
-        <TransactionsTableToolBar numSelected={5} />
+        <TransactionsTableToolBar numSelected={selected.length} />
         <TableContainer>
           <Table className={classes.table} aria-label="transactions-table">
             <TableHead>
@@ -103,9 +99,12 @@ export default function TransactionsTable() {
 
                   return (
                     <TableRow
-                      key={row.id.toString()}
-                      onClick={(event) => handleClick(event, row.id)}
+                      hover
                       role="checkbox"
+                      key={row.id.toString()}
+                      aria-checked={isItemSelected}
+                      onClick={(event) => handleClick(event, row.id)}
+                      selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -130,7 +129,7 @@ export default function TransactionsTable() {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[10, 25, 50, { value: -1, label: "All" }]}
           component="div"
           count={transactions.length}
           rowsPerPage={rowsPerPage}

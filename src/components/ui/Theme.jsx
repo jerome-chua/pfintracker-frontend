@@ -17,6 +17,7 @@ export default createMuiTheme({
     secondary: {
       main: `${brandBg}`,
       green: `${brandDarkGreen}`,
+      orange: `${brandOrange}`,
     },
   },
   typography: {
@@ -32,5 +33,20 @@ export default createMuiTheme({
   },
   modalField: {
     width: 165,
+  },
+  tableData: {
+    primary: {
+      main: "black",
+    },
+  },
+  overrides: {
+    MuiCheckbox: {
+      colorSecondary: {
+        color: "grey",
+        "&$checked": {
+          color: "orange",
+        },
+      },
+    },
   },
 });
