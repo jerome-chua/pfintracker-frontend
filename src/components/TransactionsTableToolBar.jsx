@@ -35,9 +35,7 @@ export default function TransactionsTableToolbar({ numSelected, selected }) {
   const deleteRef = useRef(null);
 
   const handleClick = () => {
-    console.log("Delete button clicked. Selected", selected);
-
-    deleteTransactions(dispatch, 1, selected);
+    deleteTransactions(dispatch, selected);
   };
 
   return (
