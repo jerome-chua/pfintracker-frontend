@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -28,8 +28,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionsTableToolbar({ numSelected }) {
+export default function TransactionsTableToolbar({ numSelected, selected }) {
   const classes = useToolbarStyles();
+  const deleteRef = useRef(null);
+
+  const handleClick = () => {
+    console.log(selected);
+  };
 
   return (
     <Toolbar
@@ -54,7 +59,7 @@ export default function TransactionsTableToolbar({ numSelected }) {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" ref={deleteRef} onClick={handleClick}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>

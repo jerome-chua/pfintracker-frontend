@@ -23,6 +23,8 @@ const RUN_LOADER = 'RUN_LOADER';
 const HIDE_LOADER = 'HIDE_LOADER';
 const SET_PERIOD = 'SET_PERIOD';
 const SET_DATES = 'SET_DATES';
+const DELETE_TRANSACTIONS = 'DELETE_TRANSACTIONS';
+
 
 // REDUCER FUNCTION
 export function savifyReducer(state, action) {
@@ -43,6 +45,8 @@ export function savifyReducer(state, action) {
       return { ...state, periodChoice: action.payload };
     case SET_DATES:
       return { ...state, dateRange: action.payload };
+    case DELETE_TRANSACTIONS:
+      return { ...state, transactions: action.payload }
     default:
       return state
   }
@@ -103,6 +107,13 @@ export function setDatesAction(dateRange) {
   return {
     type: SET_DATES,
     payload: dateRange,
+  }
+}
+
+export function deleteAction(transactions) {
+  return {
+    type: DELETE_TRANSACTIONS,
+    payload: transactions,
   }
 }
 
@@ -170,4 +181,12 @@ export function setPeriodChoice(dispatch, periodChoice) {
 
 export function setDates(dispatch, dateRange) {
   dispatch(setDatesAction(dateRange));
+}
+
+export function deleteTransactions(dispatch) {
+  axios.delete(`${REACT_APP_BACKEND_URL}/deletetransactions`)
+    .then((res) => {
+      // Return an array with transaction alreaedy deleted.
+      dispatch(deleteAction(res.data));
+    });
 }

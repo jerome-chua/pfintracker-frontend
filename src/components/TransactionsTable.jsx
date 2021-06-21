@@ -76,7 +76,10 @@ export default function TransactionsTable() {
   return (
     <Box mt={3} m={1}>
       <Paper className={classes.paper}>
-        <TransactionsTableToolBar numSelected={selected.length} />
+        <TransactionsTableToolBar
+          numSelected={selected.length}
+          selected={selected}
+        />
         <TableContainer>
           <Table className={classes.table} aria-label="transactions-table">
             <TableHead>
