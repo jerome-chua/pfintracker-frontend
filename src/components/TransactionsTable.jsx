@@ -79,6 +79,7 @@ export default function TransactionsTable() {
         <TransactionsTableToolBar
           numSelected={selected.length}
           selected={selected}
+          setSelected={(payload) => setSelected(payload)}
         />
         <TableContainer>
           <Table className={classes.table} aria-label="transactions-table">

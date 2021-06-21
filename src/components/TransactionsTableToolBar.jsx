@@ -29,13 +29,18 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionsTableToolbar({ numSelected, selected }) {
+export default function TransactionsTableToolbar({
+  numSelected,
+  selected,
+  setSelected,
+}) {
   const { dispatch } = useContext(SavifyContext);
   const classes = useToolbarStyles();
   const deleteRef = useRef(null);
 
   const handleClick = () => {
     deleteTransactions(dispatch, selected);
+    setSelected([]);
   };
 
   return (
