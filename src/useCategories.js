@@ -64,15 +64,14 @@ export default function useCategories(type) {
 
 
   if (periodChoice === "month") {
-    while (endDate > startDate) {
+    while (moment(dateRange.endDate, "DD-MM-YYYY").add('month', 1) > startDate) {
       // Labels
-      const eachMonth = moment(startDate).format("MMM 'YY");
-      labels.push(eachMonth);
-      startDate.add(1, 'month'); 
+      const eachMonthLabel = moment(startDate).format("MMM 'YY");
+      labels.push(eachMonthLabel);
 
       // Data
       dataPoints.push(tally(startDate, 'month'));
-      startDate.add(30, 'days');
+      startDate.add(1, 'month');
     }
   } 
   else if (periodChoice === "week") {

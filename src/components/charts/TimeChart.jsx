@@ -67,7 +67,10 @@ export default function TimeChart({ type }) {
     <Card className={type === "Income" ? classes.income : classes.expense}>
       <Grid container justify="space-between">
         <Grid item xs={12}>
-          <BrandCardHeader image="../savings.png" extra={"Savings"} />
+          <BrandCardHeader
+            image="../savings.png"
+            extra={`Total Savings: $${fixedDecimal(total).toLocaleString()}`}
+          />
         </Grid>
         <Grid container xs={11} justify="flex-end">
           <ToggleButtonGroup value={period} onChange={handlePeriod} exclusive>
@@ -96,11 +99,8 @@ export default function TimeChart({ type }) {
         </Grid>
         <Grid item xs={12}>
           <CardContent>
-            <Typography variant="h5">
-              Total Savings: ${fixedDecimal(total).toLocaleString()}
-            </Typography>
-            <Typography variant="h5">
-              Date Range Specific: $
+            <Typography variant="h6">
+              During this period: $
               {fixedDecimal(filteredTotal).toLocaleString()}
             </Typography>
             <Line data={timeData} options={options} />
