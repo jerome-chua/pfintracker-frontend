@@ -7,11 +7,15 @@ import { Line } from "react-chartjs-2";
 import useStyles from "./styles";
 import useCategories from "../../useCategories.js";
 
-export default function TimeChart({ type, total }) {
+const fixedDecimal = (x) => {
+  return Number(Number.parseFloat(x).toFixed(2));
+};
+
+export default function TimeChart({ type }) {
   console.log("Time Chart renders");
 
   const { store, dispatch } = useContext(SavifyContext);
-  const { dateRange } = store;
+  const { transactions, dateRange } = store;
   const classes = useStyles();
   const { timeData } = useCategories(type);
   const [period, setPeriod] = useState("day"); // Sets "day", week", "month"
@@ -28,8 +32,17 @@ export default function TimeChart({ type, total }) {
     },
   };
 
-  // When you pass the data needed into the chart, you can calculuate the total sum
-  // for each category right here:
+  // Calculate total amount for income | expense
+  const total = transactions.reduce(
+    (acc, currVal) =>
+      currVal.transactionType === "Income"
+        ? acc + currVal.amount
+        : acc - currVal.amount,
+    0
+  );
+
+  console.log(typeof fixedDecimal(total));
+  console.log(typeof total);
 
   return (
     <Card className={type === "Income" ? classes.income : classes.expense}>
@@ -64,7 +77,9 @@ export default function TimeChart({ type, total }) {
         </Grid>
         <Grid item xs={12}>
           <CardContent>
-            <Typography variant="h5">${total.toLocaleString()}</Typography>
+            <Typography variant="h5">
+              ${fixedDecimal(total).toLocaleString()}
+            </Typography>
             <Line data={timeData} options={options} />
           </CardContent>
         </Grid>
