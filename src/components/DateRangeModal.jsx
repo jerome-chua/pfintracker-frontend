@@ -3,7 +3,7 @@ import { SavifyContext, setDates } from "../store.js";
 import { Modal, Button } from "@material-ui/core";
 import { DateRange } from "@material-ui/icons";
 import { DateRangePicker } from "react-date-range";
-import { addDays } from "date-fns";
+import { addDays, addMonths } from "date-fns";
 import { useTheme } from "@material-ui/core/styles";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
@@ -58,20 +58,10 @@ export default function DateRangeModal() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [modalStyle] = useState(getModalPos);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // Set to current month? aka 30 days
   const [dateRng, setDateRng] = useState([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: new Date(2021, 0, 1),
+      endDate: addMonths(new Date(2021, 0, 1), 1),
       key: "range",
     },
   ]);
@@ -80,6 +70,14 @@ export default function DateRangeModal() {
     const daysDiff = calcDiff(dateRng[0].startDate, dateRng[0].endDate);
     setDates(dispatch, { ...dateRng[0], daysDiff });
   }, [dateRng]);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const modalBody = (
     <div style={modalStyle} className={classes.paper}>
