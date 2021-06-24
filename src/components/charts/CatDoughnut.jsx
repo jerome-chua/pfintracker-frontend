@@ -64,7 +64,9 @@ export default function CatDoughnut({ type }) {
             ${fixedDecimal(total).toLocaleString()}
           </Typography>
         </Box>
-        <Doughnut data={catData} />
+        <Box m={5}>
+          <Doughnut data={catData} />
+        </Box>
       </CardContent>
     </Card>
   );

@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import cx from "clsx";
 import { SavifyContext, setPeriodChoice } from "../../store.js";
-import { Grid, Card, CardContent, Typography } from "@material-ui/core";
+import { Grid, Card, CardContent, Box, Paper } from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import { Line } from "react-chartjs-2";
 import useCategories from "../../useCategories.js";
 import moment from "moment";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { useN03TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n03";
 import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
 
@@ -22,7 +22,7 @@ const strFormat = (date) => {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxHeight: 1400,
+    height: "100%",
     borderRadius: 20,
     padding: 15,
     margin: 10,
@@ -30,7 +30,28 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: 20,
   },
+  divider: {
+    margin: theme.spacing(1, 0.5),
+  },
+  paper: {
+    display: "flex",
+    border: `1px solid ${theme.palette.divider}`,
+    flexWrap: "wrap",
+  },
 }));
+
+const StyledToggleButtonGroup = withStyles((theme) => ({
+  grouped: {
+    margin: theme.spacing(0.5),
+    border: "black",
+    "&:not(:first-child)": {
+      borderRadius: theme.shape.borderRadius,
+    },
+    "&:first-child": {
+      borderRadius: theme.shape.borderRadius,
+    },
+  },
+}))(ToggleButtonGroup);
 
 export default function TimeChart({ type }) {
   const { store, dispatch } = useContext(SavifyContext);
@@ -90,44 +111,50 @@ export default function TimeChart({ type }) {
             extra={`Total Savings: $${fixedDecimal(total).toLocaleString()}`}
           />
         </Grid>
-        <Grid container xs={11} justify="flex-end">
-          <ToggleButtonGroup value={period} onChange={handlePeriod} exclusive>
-            <ToggleButton
-              value="day"
-              aria-label="day"
-              disabled={dateRange.daysDiff > 70 ? true : false}
-            >
-              Day
-            </ToggleButton>
-            <ToggleButton
-              value="week"
-              aria-label="week"
-              disabled={dateRange.daysDiff < 7 ? true : false}
-            >
-              Week
-            </ToggleButton>
-            <ToggleButton
-              value="month"
-              aria-label="month"
-              disabled={dateRange.daysDiff < 31 ? true : false}
-            >
-              Month
-            </ToggleButton>
-          </ToggleButtonGroup>
+        <Grid container xs={12} justify="flex-end">
+          <Box mr={4}>
+            <Paper elevation={0} className={cardStyles.paper}>
+              <StyledToggleButtonGroup
+                value={period}
+                onChange={handlePeriod}
+                exclusive
+              >
+                <ToggleButton
+                  value="day"
+                  aria-label="day"
+                  disabled={dateRange.daysDiff > 70 ? true : false}
+                >
+                  Day
+                </ToggleButton>
+                <ToggleButton
+                  value="week"
+                  aria-label="week"
+                  disabled={dateRange.daysDiff < 7 ? true : false}
+                >
+                  Week
+                </ToggleButton>
+                <ToggleButton
+                  value="month"
+                  aria-label="month"
+                  disabled={dateRange.daysDiff < 31 ? true : false}
+                >
+                  Month
+                </ToggleButton>
+              </StyledToggleButtonGroup>
+            </Paper>
+          </Box>
         </Grid>
         <Grid item xs={12}>
           <CardContent>
-            {/* <Typography variant="h6">
-              During this period: $
-              {fixedDecimal(filteredTotal).toLocaleString()}
-            </Typography> */}
             <TextInfoContent
               classes={styles}
               overline={"During selected period"}
               heading={`$
               ${fixedDecimal(filteredTotal).toLocaleString()}`}
             />
-            <Line data={timeData} options={options} />
+            <Box m={2}>
+              <Line data={timeData} options={options} />
+            </Box>
           </CardContent>
         </Grid>
       </Grid>
