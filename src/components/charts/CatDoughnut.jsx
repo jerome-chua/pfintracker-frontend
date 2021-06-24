@@ -5,6 +5,10 @@ import { Doughnut } from "react-chartjs-2";
 import useStyles from "./styles";
 import useCategories from "../../useCategories.js";
 
+const fixedDecimal = (x) => {
+  return Number(Number.parseFloat(x).toFixed(2));
+};
+
 export default function CatDoughnut({ type }) {
   const classes = useStyles();
   const { total, catData } = useCategories(type);
@@ -18,7 +22,9 @@ export default function CatDoughnut({ type }) {
         extra={type}
       />
       <CardContent>
-        <Typography variant="h5">${roundTotal.toLocaleString()}</Typography>
+        <Typography variant="h5">
+          ${fixedDecimal(roundTotal).toLocaleString()}
+        </Typography>
         <Doughnut data={catData} />
       </CardContent>
     </Card>

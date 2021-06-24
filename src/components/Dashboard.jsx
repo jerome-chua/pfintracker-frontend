@@ -37,13 +37,13 @@ export default function Dashboard() {
           <TimeChart type="Income" />
         </Box>
       </Grid>
-      <Grid item xs={10} md={4}>
-        <Box m={2}>
+      <Grid item xs={10} md={6}>
+        <Box m={1} my={3}>
           <CatDoughnut type="Expense" />
         </Box>
       </Grid>
-      <Grid item xs={10} md={4}>
-        <Box m={2}>
+      <Grid item xs={10} md={6}>
+        <Box m={1} my={3}>
           <CatDoughnut type="Income" />
         </Box>
       </Grid>
