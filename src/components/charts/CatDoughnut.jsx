@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import cx from "clsx";
 import { SavifyContext } from "../../store.js";
-import { Card, CardContent, Typography, Box } from "@material-ui/core";
+import { Card, CardContent, Box } from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { Doughnut } from "react-chartjs-2";
 import useStyles from "./styles";
@@ -9,7 +8,6 @@ import { incomeCategories, expenseCategories } from "../ui/categoryStyles.js";
 import moment from "moment";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import { useN03TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n03";
-import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
 
 const fixedDecimal = (x) => {
   return Number(Number.parseFloat(x).toFixed(2));
@@ -26,7 +24,6 @@ export default function CatDoughnut({ type }) {
   const { startDate, endDate } = dateRange;
 
   const styles = useN03TextInfoContentStyles();
-  const shadowStyles = useLightTopShadowStyles();
 
   const momentStart = strFormat(startDate);
   const momentEnd = strFormat(endDate);

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { SavifyContext } from "./store.js";
 import moment from 'moment';
 
-export default function useCategories(type) {
+export default function useData(type) {
   const { store } = useContext(SavifyContext);
   const { transactions, periodChoice, dateRange } = store;
   

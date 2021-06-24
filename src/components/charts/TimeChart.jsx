@@ -5,7 +5,6 @@ import { Grid, Card, CardContent, Box, Paper } from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import { Line } from "react-chartjs-2";
-import useCategories from "../../useCategories.js";
 import moment from "moment";
 import TextInfoContent from "@mui-treasury/components/content/textInfo";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -56,16 +55,97 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 export default function TimeChart({ type }) {
   const { store, dispatch } = useContext(SavifyContext);
   const { transactions, dateRange } = store;
-  const { startDate, endDate } = dateRange;
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
-  const { timeData } = useCategories(type);
   const [period, setPeriod] = useState("day"); // Sets "day", week", "month"
 
   const handlePeriod = (evt, newPeriod) => {
     setPeriod(newPeriod);
-    setPeriodChoice(dispatch, newPeriod); // Sets "day", week", "month"
+    setPeriodChoice(dispatch, newPeriod);
+  };
+
+  const labels = [];
+  const dataPoints = [];
+  let startDate = moment(dateRange.startDate);
+  let endDate = moment(dateRange.endDate);
+
+  const tally = (labelDate, periodChoice) => {
+    let totalSavings;
+
+    const matchedTransacts = transactions.filter((row) =>
+      moment(row.createdAt, "YYYY-MM-DD").isSame(
+        moment(labelDate, "YYYY-MM-DD"),
+        periodChoice
+      )
+    );
+
+    totalSavings = matchedTransacts.reduce(
+      (acc, currVal) =>
+        currVal.transactionType === "Income"
+          ? acc + currVal.amount
+          : acc - currVal.amount,
+      0
+    );
+    return totalSavings;
+  };
+
+  if (period === "month") {
+    while (
+      moment(dateRange.endDate, "DD-MM-YYYY").add("month", 1) > startDate
+    ) {
+      // Labels
+      const eachMonthLabel = moment(startDate).format("MMM 'YY");
+      labels.push(eachMonthLabel);
+
+      // Data
+      dataPoints.push(tally(startDate, "month"));
+      startDate.add(1, "month");
+    }
+  } else if (period === "week") {
+    while (moment(dateRange.endDate, "DD-MM-YYYY").add("days", 7) > startDate) {
+      // Labels
+      const weekStart = startDate.startOf("week").format("DD MMM").toString();
+      const weekEnd = startDate.endOf("week").format("DD MMM").toString();
+      const eachWeekLabel = `${weekStart} - ${weekEnd}`;
+      labels.push(eachWeekLabel);
+
+      // Data
+      dataPoints.push(tally(startDate, "week"));
+      startDate.add(7, "days");
+    }
+  } else {
+    while (endDate > startDate) {
+      // Labels
+      const eachDay = moment(startDate).format("YYYY-MM-DD");
+      labels.push(eachDay);
+
+      // Data
+      dataPoints.push(tally(eachDay, "day"));
+      startDate.add(1, "days");
+    }
+  }
+
+  const cumulative = [];
+  dataPoints.reduce((a, b, i) => {
+    return (cumulative[i] = a + b);
+  }, 0);
+
+  // Day/Week/Month Data
+  const timeData = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Savings",
+        data: cumulative,
+        fill: true,
+        backgroundColor: "rgb(23, 112, 110, 0.2)",
+        borderColor: "rgb(23, 112, 110, 0.8)",
+        pointHoverBorderWidth: 7,
+        pointRadius: 0,
+        pointHitRadius: 30,
+      },
+    ],
   };
 
   const options = {
@@ -75,8 +155,8 @@ export default function TimeChart({ type }) {
     },
   };
 
-  const momentStart = strFormat(startDate);
-  const momentEnd = strFormat(endDate);
+  const momentStart = strFormat(dateRange.startDate);
+  const momentEnd = strFormat(dateRange.endDate);
 
   // Calculate total amount for income | expense
   const total = transactions.reduce(
