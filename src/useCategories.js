@@ -7,7 +7,6 @@ export default function useCategories(type) {
   const {store, } = useContext(SavifyContext);
   const { transactions, periodChoice, dateRange } = store;
 
-
   // Filter for income | expense
   const chosenTransacts = transactions.filter((row) => row.transactionType === type)
 
@@ -29,18 +28,6 @@ export default function useCategories(type) {
   
   // Leave out categories with $0 in doughtnut chart display
   const filteredCategories = categories.filter((cat) => cat.amount > 0);
-  
-  const catData = {
-    datasets: [{ 
-      data: filteredCategories.map((cat) => cat.amount), 
-      backgroundColor: filteredCategories.map((cat) => cat.color)
-    }],
-    labels: filteredCategories.map((cat) => cat.category),
-  };
-
-  /* 
-    Put these calculations in Dashboard.jsx / TimeChart.jsx ?
-  */
 
   const labels = [];
   const dataPoints = [];
@@ -121,5 +108,5 @@ export default function useCategories(type) {
     ],
   };
 
-  return { filteredCategories, total, catData, timeData };
+  return { filteredCategories, total, timeData };
 };
