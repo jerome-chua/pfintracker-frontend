@@ -11,8 +11,8 @@ import LoginForm from "./LoginForm.jsx";
 export default function App() {
   console.log("Main App Renders");
 
-  const myUser = {
-    email: "jerome@123gmail.com",
+  const bypassUser = {
+    email: "jerome123@gmail.com",
     password: "pw123",
   };
 
@@ -21,6 +21,16 @@ export default function App() {
 
   const Login = (details) => {
     console.log(details);
+
+    if (
+      details.email === bypassUser.email &&
+      details.password === bypassUser.password
+    ) {
+      console.log("Logged in");
+    } else {
+      console.log("details dont match");
+      setError("Details do not match!");
+    }
   };
 
   const Logout = () => {
@@ -54,7 +64,7 @@ export default function App() {
                   </h2>
                 </div>
               ) : (
-                <LoginForm />
+                <LoginForm Login={Login} error={error} />
               )}
             </Route>
           </Switch>
