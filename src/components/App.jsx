@@ -26,7 +26,6 @@ export default function App() {
       details.email === bypassUser.email &&
       details.password === bypassUser.password
     ) {
-      console.log("Logged in");
       setLoggedIn(true);
     } else {
       setError("Details do not match!");
@@ -53,7 +52,7 @@ export default function App() {
               Profile Component
             </Route>
             <Route exact path="/">
-              {user.email !== "" ? (
+              {loggedIn ? (
                 <Dashboard />
               ) : (
                 <LoginForm Login={Login} error={error} />

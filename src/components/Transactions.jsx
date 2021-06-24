@@ -1,20 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { SavifyContext, getCategories, getHashTags } from "../store";
-import { makeStyles } from "@material-ui/styles";
 import { Grid, Box } from "@material-ui/core";
 import TransactionsTable from "./TransactionsTable.jsx";
 import TransactionsModal from "./TransactionsModal.jsx";
 import SavingsCard from "./SavingsCard.jsx";
 import ExpenseCard from "./ExpenseCard.jsx";
 
-// const useStyles = makeStyles((theme) => ({
-//   table: {
-//     backgroundColor: theme.palette.secondary.main,
-//   },
-// }));
-
 export default function Transactions() {
-  // const classes = useStyles();
   const [category, setCategory] = useState("");
   const [hashtag, setHashtag] = useState("");
   const [note, setNote] = useState("");

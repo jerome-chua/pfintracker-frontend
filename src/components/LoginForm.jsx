@@ -116,7 +116,7 @@ export default function LoginForm({ Login, error }) {
             >
               Log In
             </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="error">
                 Invalid Email or password. Try Again.
               </Alert>

@@ -32,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
     borderRadius: "25px",
   },
+  button: {
+    fontFamily: "Raleway",
+    margin: theme.spacing(1),
+    color: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.green,
+    "&:hover": {
+      backgroundColor: theme.palette.common.green,
+    },
+  },
 }));
 
 const formatDate = (date) => {
@@ -100,7 +109,7 @@ export default function DateRangeModal() {
     <>
       <Button
         variant="contained"
-        className={theme.palette.secondary.green}
+        className={classes.button}
         startIcon={<DateRange />}
         onClick={handleOpen}
       >
