@@ -1,7 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const brandGreen = "#b6eb7a";
-const brandDarkGreen = "#17706e";
+const brandGreen = "#66DE93";
+const brandDarkGreen = "#5E8B7E";
 const brandOrange = "#fb7813";
 const brandBg = "#f7f7ee";
 

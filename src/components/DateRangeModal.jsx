@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     position: "absolute",
     width: "33.3%",
-    minWidth: 550,
+    minWidth: 580,
     backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(2, 4, 3),
-    borderRadius: "20px",
+    borderRadius: "25px",
   },
 }));
 
