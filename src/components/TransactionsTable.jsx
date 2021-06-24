@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SavifyContext, getTransactions } from "../store.js";
+import {
+  SavifyContext,
+  getTransactions,
+  runLoader,
+  hideLoader,
+} from "../store.js";
 import {
   Table,
   TableBody,
@@ -9,11 +14,7 @@ import {
   Paper,
   TableHead,
   TableRow,
-  Collapse,
   Box,
-  Typography,
-  TextField,
-  MenuItem,
   Checkbox,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -38,9 +39,18 @@ export default function TransactionsTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const getData = () => {
+    runLoader(dispatch);
+    getTransactions(dispatch, 1, () => {
+      setTimeout(() => {
+        hideLoader(dispatch);
+      }, 2200);
+    });
+  };
+
   useEffect(() => {
     // TODO: Include userId as second params after dispatch (once Login done)
-    getTransactions(dispatch);
+    getData();
   }, [transactions.length]);
 
   const handleClick = (evt, id) => {

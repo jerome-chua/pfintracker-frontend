@@ -27,7 +27,7 @@ export default function Dashboard() {
 
   const getData = () => {
     runLoader(dispatch);
-    getTransactions(dispatch, () => {
+    getTransactions(dispatch, 1, () => {
       setTimeout(() => {
         hideLoader(dispatch);
       }, 2200);
