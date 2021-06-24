@@ -10,9 +10,8 @@ import {
   FormControlLabel,
   Checkbox,
   Snackbar,
-  Alert,
 } from "@material-ui/core";
-import { MonetizationOn } from "@material-ui/icons";
+import { Lock } from "@material-ui/icons";
 import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +65,7 @@ export default function LoginForm({ Login, error }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <MonetizationOn />
+          <Lock />
         </Avatar>
         <form onSubmit={handleSubmit}>
           <div className="form-inner">

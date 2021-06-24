@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./ui/Theme.jsx";
 import UserHeader from "../components/ui/UserHeader";
+import GuestHeader from "../components/ui/GuestHeader";
 import Transactions from "./Transactions.jsx";
 import Dashboard from "./Dashboard.jsx";
 import LoginForm from "./LoginForm.jsx";
@@ -18,31 +19,26 @@ export default function App() {
 
   const [user, setUser] = useState({ name: "", email: "" });
   const [error, setError] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const Login = (details) => {
-    console.log(details);
-
     if (
       details.email === bypassUser.email &&
       details.password === bypassUser.password
     ) {
       console.log("Logged in");
+      setLoggedIn(true);
     } else {
-      console.log("details dont match");
       setError("Details do not match!");
     }
-  };
-
-  const Logout = () => {
-    console.log("Logged out");
   };
 
   return (
     <SavifyProvider>
       <ThemeProvider theme={theme}>
         <Router>
-          {/*TODO: Cater for 2 different navbars */}
-          <UserHeader />
+          {loggedIn ? <UserHeader /> : <GuestHeader />}
+
           <Switch>
             <Route exact path="/transactions">
               <Transactions />
@@ -58,11 +54,7 @@ export default function App() {
             </Route>
             <Route exact path="/">
               {user.email !== "" ? (
-                <div className="welcome">
-                  <h2>
-                    Welcome back! <span>{user.name}</span>
-                  </h2>
-                </div>
+                <Dashboard />
               ) : (
                 <LoginForm Login={Login} error={error} />
               )}
