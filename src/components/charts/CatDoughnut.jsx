@@ -5,26 +5,45 @@ import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { Doughnut } from "react-chartjs-2";
 import useStyles from "./styles";
 import { incomeCategories, expenseCategories } from "../ui/categoryStyles.js";
+import moment from "moment";
 
 const fixedDecimal = (x) => {
   return Number(Number.parseFloat(x).toFixed(2));
 };
 
+const strFormat = (date) => {
+  return moment(date).format("YYYY-MM-DD");
+};
+
 export default function CatDoughnut({ type }) {
   const classes = useStyles();
-  const { store, dispatch } = useContext(SavifyContext);
+  const { store } = useContext(SavifyContext);
   const { transactions, dateRange } = store;
+  const { startDate, endDate } = dateRange;
+
+  const momentStart = strFormat(startDate);
+  const momentEnd = strFormat(endDate);
 
   // Filter for income | expense
-  const chosenTransacts = transactions.filter(
-    (row) => row.transactionType === type
-  );
+  const chosenTransacts = transactions.filter((row) => {
+    return (
+      row.transactionType === type &&
+      moment(strFormat(row.createdAt)).isBetween(momentStart, momentEnd)
+    );
+  });
 
   // Calculate total amount for income | expense
   const total = chosenTransacts.reduce(
     (acc, currVal) => (acc += currVal.amount),
     0
   );
+
+  // const filteredTransactions = transactions.filter((currVal) => {
+  //   return moment(strFormat(currVal.createdAt)).isBetween(
+  //     momentStart,
+  //     momentEnd
+  //   );
+  // });
 
   // Filter for income | expense typed categories
   const categories = type === "Income" ? incomeCategories : expenseCategories;
