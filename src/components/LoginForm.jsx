@@ -6,8 +6,14 @@ import {
   Button,
   CssBaseline,
   Typography,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Snackbar,
+  Alert,
 } from "@material-ui/core";
 import { MonetizationOn } from "@material-ui/icons";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -32,12 +38,28 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginForm({ Login, error }) {
   const classes = useStyles();
   const [details, setDetails] = useState({ email: "", password: "" });
+  const [open, setOpen] = useState(false);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
     Login(details);
+
+    if (error) {
+      setOpen(true);
+    }
   };
+
+  const handleClose = (evt, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -51,31 +73,41 @@ export default function LoginForm({ Login, error }) {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            {error !== "" ? <div className="error">{error}</div> : ""}
-            <div className="form-group">
-              <label htmlFor="email">Email: </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                onChange={(evt) =>
-                  setDetails({ ...details, email: evt.target.value })
-                }
-                value={details.email}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password: </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={(evt) =>
-                  setDetails({ ...details, password: evt.target.value })
-                }
-                value={details.password}
-              />
-            </div>
+
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={(evt) =>
+                setDetails({ ...details, email: evt.target.value })
+              }
+              value={details.email}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={(evt) =>
+                setDetails({ ...details, password: evt.target.value })
+              }
+              value={details.password}
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
             <Button
               type="submit"
               fullWidth
@@ -85,6 +117,11 @@ export default function LoginForm({ Login, error }) {
             >
               Log In
             </Button>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="error">
+                Invalid Email or password. Try Again.
+              </Alert>
+            </Snackbar>
           </div>
         </form>
       </div>
