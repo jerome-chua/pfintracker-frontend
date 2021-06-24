@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Button } from "@material-ui/core";
+import {
+  Avatar,
+  Container,
+  Button,
+  CssBaseline,
+  Typography,
+} from "@material-ui/core";
+import { MonetizationOn } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,46 +40,54 @@ export default function LoginForm({ Login, error }) {
   };
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <div className="form-inner">
-          <h2>Login</h2>
-          {error !== "" ? <div className="error">{error}</div> : ""}
-          <div className="form-group">
-            <label htmlFor="email">Email: </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={(evt) =>
-                setDetails({ ...details, email: evt.target.value })
-              }
-              value={details.email}
-            />
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <MonetizationOn />
+        </Avatar>
+        <form onSubmit={handleSubmit}>
+          <div className="form-inner">
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            {error !== "" ? <div className="error">{error}</div> : ""}
+            <div className="form-group">
+              <label htmlFor="email">Email: </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                onChange={(evt) =>
+                  setDetails({ ...details, email: evt.target.value })
+                }
+                value={details.email}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                onChange={(evt) =>
+                  setDetails({ ...details, password: evt.target.value })
+                }
+                value={details.password}
+              />
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Log In
+            </Button>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={(evt) =>
-                setDetails({ ...details, password: evt.target.value })
-              }
-              value={details.password}
-            />
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-        </div>
-      </form>
+        </form>
+      </div>
     </Container>
   );
 }
