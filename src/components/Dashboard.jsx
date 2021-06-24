@@ -34,12 +34,12 @@ export default function Dashboard() {
       </Grid>
       <Grid item xs={12}>
         <Box m={1}>
-          <TimeChart type="Income" total={calcSavings(transactions)} />
+          <TimeChart type="Income" />
         </Box>
       </Grid>
       <Grid item xs={10} md={4}>
         <Box m={2}>
-          <CatDoughnut image="../loss.png" type="Expense" />
+          <CatDoughnut type="Expense" />
         </Box>
       </Grid>
       <Grid item xs={10} md={4}>
