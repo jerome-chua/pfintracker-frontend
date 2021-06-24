@@ -75,29 +75,37 @@ export default function Transactions() {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <TransactionsModal
-          category={category}
-          handleCatChange={handleCatChange}
-          selectedDate={selectedDate}
-          handleDateChange={handleDateChange}
-          hashtag={hashtag}
-          handleTagChange={handleTagChange}
-          amount={amount}
-          handleAmtChange={handleAmtChange}
-          transactionData={transactionData}
-        />
+        <Box m={1}>
+          <TransactionsModal
+            category={category}
+            handleCatChange={handleCatChange}
+            selectedDate={selectedDate}
+            handleDateChange={handleDateChange}
+            hashtag={hashtag}
+            handleTagChange={handleTagChange}
+            amount={amount}
+            handleAmtChange={handleAmtChange}
+            transactionData={transactionData}
+          />
+        </Box>
       </Grid>
 
-      <Grid item xs={12} md={3}>
-        <SavingsCard savings={parseInt(savings.toFixed(2))} />
+      <Grid item xs={12} md={4}>
+        <Box m={1}>
+          <SavingsCard savings={parseInt(savings.toFixed(2))} />
+        </Box>
       </Grid>
 
-      <Grid item xs={12} md={3}>
-        <ExpenseCard expenses={parseInt(expenses.toFixed(2))} />
+      <Grid item xs={12} md={4}>
+        <Box m={1}>
+          <ExpenseCard expenses={parseInt(expenses.toFixed(2))} />
+        </Box>
       </Grid>
 
       <Grid item xs={12}>
-        <TransactionsTable />
+        <Box m={1}>
+          <TransactionsTable />
+        </Box>
       </Grid>
     </Grid>
   );
