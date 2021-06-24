@@ -1,5 +1,10 @@
 import React, { useEffect, useContext } from "react";
-import { SavifyContext, getTransactions } from "../store";
+import {
+  SavifyContext,
+  getTransactions,
+  runLoader,
+  hideLoader,
+} from "../store";
 import { Grid, Box } from "@material-ui/core";
 import DateRangeModal from "./DateRangeModal.jsx";
 import CatDoughnut from "./charts/CatDoughnut.jsx";
@@ -18,11 +23,19 @@ const calcSavings = (transactions) => {
 };
 
 export default function Dashboard() {
-  const { store, dispatch } = useContext(SavifyContext);
-  const { transactions } = store;
+  const { dispatch } = useContext(SavifyContext);
+
+  const getData = () => {
+    runLoader(dispatch);
+    getTransactions(dispatch, () => {
+      setTimeout(() => {
+        hideLoader(dispatch);
+      }, 2200);
+    });
+  };
 
   useEffect(() => {
-    getTransactions(dispatch);
+    getData();
   }, []);
 
   return (

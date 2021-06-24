@@ -1,7 +1,14 @@
 import React, { useState, useContext } from "react";
 import cx from "clsx";
 import { SavifyContext, setPeriodChoice } from "../../store.js";
-import { Grid, Card, CardContent, Box, Paper } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Box,
+  Paper,
+  LinearProgress,
+} from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import { Line } from "react-chartjs-2";
@@ -54,7 +61,7 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 
 export default function TimeChart({ type }) {
   const { store, dispatch } = useContext(SavifyContext);
-  const { transactions, dateRange } = store;
+  const { transactions, dateRange, loading } = store;
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();
@@ -70,6 +77,7 @@ export default function TimeChart({ type }) {
   let startDate = moment(dateRange.startDate);
   let endDate = moment(dateRange.endDate);
 
+  // Calculate total income/expense based on day/month/week
   const tally = (labelDate, periodChoice) => {
     let totalSavings;
 
@@ -90,6 +98,7 @@ export default function TimeChart({ type }) {
     return totalSavings;
   };
 
+  // Set labels & data points of time char according to user choice
   if (period === "month") {
     while (
       moment(dateRange.endDate, "DD-MM-YYYY").add("month", 1) > startDate
@@ -167,6 +176,7 @@ export default function TimeChart({ type }) {
     0
   );
 
+  // Filter transactions based on selected date range
   const filteredTransactions = transactions.filter((currVal) => {
     return moment(strFormat(currVal.createdAt)).isBetween(
       momentStart,
@@ -174,6 +184,7 @@ export default function TimeChart({ type }) {
     );
   });
 
+  // Calculate savings where income minus expense
   const filteredTotal = filteredTransactions.reduce(
     (acc, currVal) =>
       currVal.transactionType === "Income"
@@ -233,7 +244,11 @@ export default function TimeChart({ type }) {
               ${fixedDecimal(filteredTotal).toLocaleString()}`}
             />
             <Box m={2}>
-              <Line data={timeData} options={options} />
+              {loading ? (
+                <LinearProgress />
+              ) : (
+                <Line data={timeData} options={options} />
+              )}
             </Box>
           </CardContent>
         </Grid>

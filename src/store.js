@@ -138,10 +138,11 @@ export function SavifyProvider({children}) {
 const REACT_APP_BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3004";
 
 // TODO: Remove hardcoded userId 1.
-export function getTransactions(dispatch, userId=1) {
+export function getTransactions(dispatch, hideLoader, userId=1) {
   axios.get(`${REACT_APP_BACKEND_URL}/gettransactions/${userId}`)
     .then((res) => {
       dispatch(getTransactionsAction(res.data));
+      hideLoader();
     });
 }
 
