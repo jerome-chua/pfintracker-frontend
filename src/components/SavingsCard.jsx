@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 400,
     borderRadius: 20,
     spacing: 4,
+    borderBottom: "15px solid rgb(182, 235, 122, 0.55)",
   },
   content: {
     padding: 20,

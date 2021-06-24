@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxHeight: 1400,
     borderRadius: 20,
+    padding: 15,
+    margin: 10,
   },
   content: {
     padding: 20,
