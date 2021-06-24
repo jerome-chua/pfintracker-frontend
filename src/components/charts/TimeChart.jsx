@@ -1,12 +1,16 @@
 import React, { useState, useContext } from "react";
+import cx from "clsx";
 import { SavifyContext, setPeriodChoice } from "../../store.js";
 import { Grid, Card, CardContent, Typography } from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import { Line } from "react-chartjs-2";
-import useStyles from "./styles";
 import useCategories from "../../useCategories.js";
 import moment from "moment";
+import TextInfoContent from "@mui-treasury/components/content/textInfo";
+import { makeStyles } from "@material-ui/core/styles";
+import { useN03TextInfoContentStyles } from "@mui-treasury/styles/textInfoContent/n03";
+import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
 
 const fixedDecimal = (x) => {
   return Number(Number.parseFloat(x).toFixed(2));
@@ -16,11 +20,23 @@ const strFormat = (date) => {
   return moment(date).format("YYYY-MM-DD");
 };
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxHeight: 1400,
+    borderRadius: 20,
+  },
+  content: {
+    padding: 20,
+  },
+}));
+
 export default function TimeChart({ type }) {
   const { store, dispatch } = useContext(SavifyContext);
   const { transactions, dateRange } = store;
   const { startDate, endDate } = dateRange;
-  const classes = useStyles();
+  const styles = useN03TextInfoContentStyles();
+  const shadowStyles = useLightTopShadowStyles();
+  const cardStyles = useStyles();
   const { timeData } = useCategories(type);
   const [period, setPeriod] = useState("day"); // Sets "day", week", "month"
 
@@ -64,7 +80,7 @@ export default function TimeChart({ type }) {
   );
 
   return (
-    <Card className={type === "Income" ? classes.income : classes.expense}>
+    <Card className={cx(cardStyles.root, shadowStyles.root)}>
       <Grid container justify="space-between">
         <Grid item xs={12}>
           <BrandCardHeader
@@ -99,10 +115,16 @@ export default function TimeChart({ type }) {
         </Grid>
         <Grid item xs={12}>
           <CardContent>
-            <Typography variant="h6">
+            {/* <Typography variant="h6">
               During this period: $
               {fixedDecimal(filteredTotal).toLocaleString()}
-            </Typography>
+            </Typography> */}
+            <TextInfoContent
+              classes={styles}
+              overline={"During selected period"}
+              heading={`$
+              ${fixedDecimal(filteredTotal).toLocaleString()}`}
+            />
             <Line data={timeData} options={options} />
           </CardContent>
         </Grid>

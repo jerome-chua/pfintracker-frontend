@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SavifyContext } from "../../store.js";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography, Box } from "@material-ui/core";
 import BrandCardHeader from "@mui-treasury/components/cardHeader/brand";
 import { Doughnut } from "react-chartjs-2";
 import useStyles from "./styles";
@@ -59,9 +59,11 @@ export default function CatDoughnut({ type }) {
         extra={type}
       />
       <CardContent>
-        <Typography variant="h5">
-          ${fixedDecimal(total).toLocaleString()}
-        </Typography>
+        <Box mb={2}>
+          <Typography variant="h5">
+            ${fixedDecimal(total).toLocaleString()}
+          </Typography>
+        </Box>
         <Doughnut data={catData} />
       </CardContent>
     </Card>

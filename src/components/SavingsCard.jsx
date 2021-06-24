@@ -9,7 +9,7 @@ import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 300,
+    maxWidth: 400,
     borderRadius: 20,
     spacing: 4,
   },
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function IncomeCard({ savings }) {
+export default function SavingsCard({ savings }) {
   const styles = useN03TextInfoContentStyles();
   const shadowStyles = useLightTopShadowStyles();
   const cardStyles = useStyles();

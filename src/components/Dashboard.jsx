@@ -26,7 +26,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <Grid container>
+    <Grid container justify="center">
       <Grid item xs={12}>
         <Box m={1}>
           <DateRangeModal />

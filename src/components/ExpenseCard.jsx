@@ -9,7 +9,7 @@ import { useLightTopShadowStyles } from "@mui-treasury/styles/shadow/lightTop";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 300,
+    maxWidth: 400,
     borderRadius: 20,
     spacing: 4,
   },
